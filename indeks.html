@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Akademi Detektif Nalar — UKM Penalaran UNAIR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@700&family=Special+Elite&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f4efe3;--surface:#fffdf6;--surface-2:#ece4d0;--ink:#1b2436;--ink-soft:#4c4436;--muted:#7d7462;--line:#ded2b8;--navy:#10243f;--navy-2:#1a3a66;--gold:#d99a06;--gold-2:#b97e04;--gold-soft:#fdf0cd;--gold-ink:#7a5600;--brown:#8b5e3c;--brown-d:#5d4037;--teal:#0e7c6b;--teal-soft:#ddf2ec;--red:#c0392b;--red-soft:#fdecea;--paper:#f7ecd2;--paper-line:#d8c9a3;--shadow:0 16px 38px rgba(60,42,10,.16);--radius:18px}
+@media(prefers-color-scheme:dark){:root{--bg:#0a1322;--surface:#14233c;--surface-2:#1d3153;--ink:#eef2fb;--ink-soft:#c3cede;--muted:#93a4bb;--line:#2b4062;--gold-soft:#2c2508;--gold-ink:#f5cf5a;--teal-soft:#0c2c26;--red-soft:#3a1712;--paper:#efe3c2;--shadow:0 16px 38px rgba(0,0,0,.45)}}
+*{box-sizing:border-box}html,body{margin:0}body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lowtime::after{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 90px rgba(192,57,43,.5);animation:pulseRed .8s infinite alternate;z-index:60}
+@keyframes pulseRed{from{opacity:.3}to{opacity:1}}
+button,input,select{font:inherit}button{cursor:pointer}:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.hidden{display:none!important}
+/* TOPBAR */
+.topbar{background:var(--navy);color:#fff;padding:10px 20px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;position:relative;z-index:70}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.95rem}.topbar .brand small{display:block;font-weight:600;color:#c8d5e8;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:5px 12px;border-radius:999px;font-size:.78rem;font-weight:700;color:#ffe9a8}
+.sndbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:5px 13px;font-weight:800;font-size:.8rem}
+.sndbtn.on{background:var(--gold);color:#231a00;border-color:var(--gold)}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 46px}
+/* ============ INTRO SINEMATIK ============ */
+#intro{position:fixed;inset:0;background:#000;z-index:300;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s}
+#intro.gone{opacity:0;pointer-events:none}
+#intro{animation:introFailsafe .7s ease 9.5s forwards}
+@keyframes introFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
+.intro-stage{position:absolute;inset:0;background:#050505}
+.door-beam{position:absolute;top:0;bottom:0;left:50%;width:6px;transform:translateX(-50%);background:linear-gradient(180deg,#fff6d8,#ffd873);opacity:0;filter:blur(1px);transition:all 1.4s ease}
+#intro.s1 .door-beam{opacity:1;width:14px}
+#intro.s2 .door-beam{width:46vw;opacity:.28;clip-path:polygon(46% 0,54% 0,100% 100%,0 100%)}
+.office{position:absolute;inset:0;opacity:0;transition:opacity 1s;background:radial-gradient(900px 480px at 50% -80px,rgba(255,214,110,.20),transparent 60%),linear-gradient(180deg,#131c2e 0%,#1b2a44 62%,#3a2a1a 62.2%,#4a3420 100%)}
+#intro.s2 .office{opacity:1}
+.lamp{position:absolute;top:0;width:120px;text-align:center;opacity:.12;transition:opacity .5s}
+.lamp:before{content:"";display:block;width:2px;height:52px;background:#0a0f1a;margin:0 auto}
+.lamp .bulb{width:44px;height:30px;margin:0 auto;background:#57462a;border-radius:0 0 24px 24px;position:relative}
+.lamp .cone{width:190px;height:230px;margin:-6px auto 0 -35px;background:linear-gradient(180deg,rgba(255,214,110,.4),transparent 75%);clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);opacity:0;transition:opacity .5s}
+#intro.s2 .lamp.l1,#intro.s3 .lamp.l2,#intro.s4 .lamp.l3{opacity:1}
+#intro.s2 .lamp.l1 .cone,#intro.s3 .lamp.l2 .cone,#intro.s4 .lamp.l3 .cone{opacity:1}
+#intro.s2 .lamp.l1 .bulb,#intro.s3 .lamp.l2 .bulb,#intro.s4 .lamp.l3 .bulb{background:#ffd873;box-shadow:0 0 34px 12px rgba(255,205,90,.75)}
+.caseboard{position:absolute;left:5%;top:19%;width:34%;max-width:400px;background:#6d4c2f;border:6px solid #4a3018;border-radius:8px;padding:12px;color:#fff;opacity:0;transform:translateY(8px);transition:all .8s}
+#intro.s3 .caseboard{opacity:1;transform:none}
+.caseboard h4{margin:0 0 8px;font-size:.78rem;letter-spacing:.14em}
+.caseboard .cards{display:flex;gap:7px}.caseboard .mini{flex:1;background:#f7ecd2;color:#5d4037;border-radius:4px;padding:7px 6px;font-size:.6rem;font-weight:800;min-height:44px;box-shadow:0 3px 6px rgba(0,0,0,.35)}
+.caseboard svg{width:100%;height:44px;margin-top:4px}
+.shelf{position:absolute;right:5%;top:19%;width:17%;max-width:190px;opacity:0;transition:opacity .8s .2s}
+#intro.s3 .shelf{opacity:1}
+.shelf .row{display:flex;gap:5px;border-bottom:8px solid #4a3018;padding-bottom:4px;margin-bottom:10px}
+.shelf .file{flex:1;height:40px;border-radius:3px 3px 0 0}
+.map2{position:absolute;right:6%;top:52%;width:22%;max-width:250px;height:110px;background:#20365a;border:4px solid #0d1a2e;border-radius:8px;opacity:0;transition:opacity .8s .35s;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:22px 22px}
+#intro.s4 .map2{opacity:1}
+.map2 i{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.35)}
+.desk{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:min(620px,88vw);height:26px;background:linear-gradient(180deg,#7a5230,#54371d);border-radius:6px;box-shadow:0 16px 30px rgba(0,0,0,.5);opacity:0;transition:opacity .8s}
+#intro.s4 .desk{opacity:1}
+.intro-capy{position:absolute;left:50%;bottom:12%;transform:translateX(-50%) scale(.6);width:min(300px,60vw);opacity:0;filter:brightness(0);transition:all 1s}
+#intro.s4 .intro-capy{opacity:.85;transform:translateX(-50%) scale(.92)}
+#intro.s5 .intro-capy{opacity:1;filter:none;transform:translateX(-50%) scale(1)}
+.intro-letter{position:absolute;left:50%;bottom:6%;transform:translateX(-50%) translateY(24px) rotate(-2deg);background:var(--paper);color:#4a3a1c;border:1px solid var(--paper-line);border-radius:6px;padding:12px 20px;font-family:"Special Elite",monospace;font-size:.86rem;text-align:center;box-shadow:0 18px 34px rgba(0,0,0,.55);opacity:0;transition:all .7s;max-width:92vw}
+#intro.s5 .intro-letter{opacity:1;transform:translateX(-50%) rotate(-2deg)}
+.intro-cap{position:absolute;left:0;right:0;bottom:16%;text-align:center;color:#ffe9a8;font-family:"DM Serif Display",serif;font-size:clamp(1.15rem,3.4vw,1.7rem);text-shadow:0 3px 14px #000;padding:0 16px;transition:opacity .4s}
+#intro.s5 .intro-cap{bottom:auto;top:6%}
+.intro-skip{position:absolute;right:18px;bottom:18px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.55);color:#fff;border-radius:999px;padding:11px 20px;font-weight:900;font-size:.95rem;z-index:5}
+.intro-skip:hover{background:var(--gold);color:#231a00}
+.intro-prog{position:absolute;left:18px;bottom:24px;color:#ffe9a8;font-size:.75rem;font-weight:800;letter-spacing:.16em}
+/* ============ CAPY ============ */
+.capy-svg{width:100%;height:auto;display:block;animation:breathe 3.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.capy-svg .eyes{transform-box:fill-box;transform-origin:center;animation:blink 4.4s infinite}
+@keyframes blink{0%,91%,100%{transform:scaleY(1)}94.5%{transform:scaleY(.06)}}
+.capy-glass{transform-origin:268px 196px;animation:scan 3.8s ease-in-out infinite}
+@keyframes scan{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(6deg) translateX(7px)}}
+.capy-wrap.happy .capy-svg{animation:jump .62s ease 2}
+@keyframes jump{0%,100%{transform:translateY(0)}40%{transform:translateY(-24px) rotate(-2deg)}}
+.capy-wrap.sad .capy-svg{animation:shake2 .5s ease 2}
+@keyframes shake2{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.capy-wrap.panic .capy-svg{animation:panicA .26s infinite alternate}
+@keyframes panicA{from{transform:rotate(-2.4deg)}to{transform:rotate(2.4deg) translateY(-4px)}}
+.capy-wrap.proud .capy-svg{animation:proudA 1.6s ease-in-out infinite}
+@keyframes proudA{0%,100%{transform:translateY(0) scale(1.02)}50%{transform:translateY(-4px) scale(1.04)}}
+.dizzy{transform-box:fill-box;transform-origin:center;animation:spin 1.6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sweat{animation:sweatA 0.9s ease-in infinite}
+@keyframes sweatA{0%{transform:translateY(0);opacity:1}100%{transform:translateY(14px);opacity:0}}
+/* ============ START / PENDAFTARAN ============ */
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:22px;align-items:center}
+@media(max-width:880px){.hero-grid{grid-template-columns:1fr}}
+.kicker{display:inline-flex;gap:8px;align-items:center;background:var(--gold-soft);border:1px dashed var(--gold);color:var(--gold-ink);font-weight:800;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.hero h1{font-family:"DM Serif Display",serif;font-size:clamp(2.2rem,5.2vw,3.5rem);line-height:1;margin:13px 0 11px}
+.hero h1 .hl{color:var(--gold-2);font-style:italic}
+.hero p.lede{font-size:1.04rem;color:var(--ink-soft);max-width:56ch;margin:0 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:.83rem;font-weight:700;color:var(--ink-soft)}
+.mascot-stage{position:relative;background:radial-gradient(600px 300px at 50% 0%,rgba(255,233,168,.5),transparent 60%),linear-gradient(160deg,var(--navy-2),var(--navy));border-radius:24px;padding:20px 18px 14px;color:#fff;overflow:hidden;box-shadow:var(--shadow);text-align:center}
+.speech{background:#fff;color:#1a2332;border-radius:16px;padding:11px 14px;font-weight:700;font-size:.92rem;position:relative;margin:6px auto 4px;max-width:380px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.speech:after{content:"";position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);border:10px solid transparent;border-top-color:#fff;border-bottom:0}
+.speech .hand{font-family:"Caveat",cursive;font-size:1.25rem;color:#b5541d;display:block}
+.float-clue{position:absolute;background:#fff;color:#102a4c;font-weight:900;font-size:.7rem;padding:6px 9px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.25);animation:floaty 3.2s ease-in-out infinite;z-index:2}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.mascot-name{font-family:"Caveat",cursive;font-size:1.7rem;color:#ffe9a8;line-height:1.1}
+.mascot-role{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:800}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;margin-top:20px;align-items:start}
+@media(max-width:840px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+.card h2{margin:0 0 4px;font-size:1.15rem;font-weight:900}.card .sub{margin:0 0 14px;color:var(--muted);font-size:.9rem}
+/* Surat kertas tua */
+.paper{background:linear-gradient(175deg,#f9f0d8,#f3e5c3);color:#43331a;border:1px solid #d9c69c;border-radius:10px;padding:26px 24px 22px;position:relative;box-shadow:0 20px 40px rgba(60,42,10,.28);overflow:hidden}
+.paper:before{content:"";position:absolute;top:0;bottom:0;left:34px;width:2px;background:rgba(192,57,43,.3)}
+.paper:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 27px,rgba(90,70,30,.10) 27px 28px);pointer-events:none}
+.paper .holes{pointer-events:none;position:absolute;left:12px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-evenly}
+.paper .holes i{width:11px;height:11px;border-radius:50%;background:var(--bg);box-shadow:inset 0 1px 3px rgba(0,0,0,.35)}
+.paper-head{text-align:center;margin:0 0 4px 14px;position:relative;z-index:1}
+.paper-head .org{font-family:"Special Elite",monospace;font-size:.72rem;letter-spacing:.18em;color:#7a6234}
+.paper-head h2{font-family:"DM Serif Display",serif;font-size:1.5rem;margin:2px 0;color:#3c2c10}
+.paper-head .no{font-family:"Special Elite",monospace;font-size:.74rem;color:#8a6f3a;border-top:2px double #b39b5e;border-bottom:2px double #b39b5e;padding:3px 0;margin-top:8px}
+.paper form{position:relative;z-index:1;margin-left:14px}
+label.f{display:block;font-size:.8rem;font-weight:800;margin:0 0 4px;color:#6d5626;letter-spacing:.05em;text-transform:uppercase}
+.paper input[type=text]{width:100%;padding:10px 6px 8px;border:none;border-bottom:2px dashed #a68d55;border-radius:0;background:transparent;color:#2f2310;font-family:"Special Elite",monospace;font-size:1.12rem;margin-bottom:16px}
+.paper input[type=text]:focus{outline:none;border-bottom:2px solid var(--red)}
+.typed-line{font-family:"Special Elite",monospace;font-size:.86rem;color:#5d4a22;min-height:1.3em;margin:-8px 0 14px}
+.typed-line .caret{display:inline-block;width:8px;height:1em;background:#5d4a22;vertical-align:-2px;animation:blinkC .8s steps(1) infinite}
+@keyframes blinkC{50%{opacity:0}}
+.stamp{position:absolute;right:16px;top:86px;z-index:3;border:4px solid var(--red);color:var(--red);font-family:"Special Elite",monospace;font-weight:700;font-size:1.25rem;letter-spacing:.14em;padding:5px 14px;border-radius:8px;transform:rotate(-13deg) scale(3);opacity:0;pointer-events:none;background:rgba(253,236,234,.35)}
+.stamp.slam{animation:slam .45s cubic-bezier(.2,2.4,.4,1) forwards}
+@keyframes slam{0%{opacity:0;transform:rotate(-13deg) scale(3)}70%{opacity:1;transform:rotate(-13deg) scale(.92)}100%{opacity:.92;transform:rotate(-13deg) scale(1)}}
+.pin-badge{pointer-events:none;position:absolute;left:52px;bottom:86px;z-index:3;background:linear-gradient(160deg,#ffe9a8,var(--gold));color:#4a3500;border:2px solid #a87408;border-radius:12px;padding:7px 13px;font-weight:900;font-size:.8rem;box-shadow:0 8px 16px rgba(0,0,0,.3);transform:translateY(-46px);opacity:0}
+.pin-badge.pin{animation:pinDrop .55s cubic-bezier(.3,1.6,.5,1) .25s forwards}
+@keyframes pinDrop{to{transform:translateY(0) rotate(-3deg);opacity:1}}
+.pin-badge:before{content:"📌 "}
+.rules{list-style:none;margin:2px 0 16px;padding:0;display:grid;gap:8px;position:relative;z-index:1;margin-left:14px}
+.rules li{display:flex;gap:10px;font-size:.9rem;color:#5d4a22}.rules .n{flex:none;width:24px;height:24px;border-radius:8px;background:#efe0b8;color:#7a5600;font-weight:900;display:flex;align-items:center;justify-content:center;font-family:"Special Elite",monospace}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:none;border-radius:12px;padding:14px 22px;font-weight:900;font-size:1rem;background:var(--gold);color:#231a00;width:100%;transition:.15s;position:relative;z-index:1}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}.btn:active{transform:scale(.98)}
+.btn.secondary{background:var(--surface-2);color:var(--ink);border:1.5px solid var(--line)}.btn.ghost{background:transparent;color:var(--ink-soft);border:1.5px solid var(--line)}.btn.small{width:auto;padding:10px 18px;font-size:.92rem}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap}.btnrow .btn{flex:1;min-width:150px}
+/* LB */
+.lb-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.lb-note{font-size:.78rem;color:var(--muted)}
+.lb-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lb-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:9px 12px}
+.lb-row.me{border-color:var(--gold);background:var(--gold-soft)}
+.ranknum{width:30px;height:30px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.88rem}
+.lb-row:nth-child(1) .ranknum{background:var(--gold)}
+.lb-name{font-weight:900;font-size:.95rem}.lb-meta{font-size:.78rem;color:var(--muted)}
+.rankbadge{display:inline-block;background:var(--navy);color:#ffe9a8;font-size:.68rem;font-weight:900;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+.lb-score{text-align:right}.lb-score b{font-size:1.05rem;display:block}.lb-score span{font-size:.7rem;color:var(--muted);font-weight:800;text-transform:uppercase}
+.lb-empty{border:1.5px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--muted)}
+/* ============ GAME ============ */
+.hud{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px}
+@media(max-width:600px){.hud{grid-template-columns:repeat(2,1fr)}}
+.hud .stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:9px 14px;display:flex;gap:11px;align-items:center;box-shadow:var(--shadow)}
+.hud .stat .v{font-size:1.3rem;font-weight:900;line-height:1.1}.hud .stat .k{font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.hud .stat.danger .v{color:var(--red)}.hud .stat.onfire{border-color:#f97316;background:#fff7ed;color:#7c2d12}
+@media(prefers-color-scheme:dark){.hud .stat.onfire{background:#3a2410;color:#ffb27a}}
+.rankbar{background:var(--navy);color:#fff;border-radius:14px;padding:11px 16px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow);margin-bottom:10px;flex-wrap:wrap}
+.rankbar .rb-badge{flex:none;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,var(--gold) 65%,#a87408);display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:2px solid #ffe9a8;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.rankbar .rb-main{flex:1;min-width:200px}
+.rankbar .rb-name{font-weight:900;font-size:1.05rem;line-height:1.2}.rankbar .rb-name small{display:block;font-size:.68rem;letter-spacing:.12em;color:#ffe9a8;font-weight:800}
+.rankbar .rb-track{height:11px;background:rgba(255,255,255,.18);border-radius:999px;overflow:hidden;margin-top:6px}
+.rankbar .rb-track i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#ffe9a8);width:0%;transition:width .6s ease}
+.rankbar .rb-next{font-size:.8rem;color:#c8d5e8;font-weight:700;text-align:right}
+.timebar{height:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-bottom:8px}
+.timebar i{display:block;height:100%;background:var(--gold);width:100%;transition:width .25s linear}.timebar.low i{background:var(--red)}
+.progressline{display:flex;justify-content:space-between;font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:12px;gap:10px;flex-wrap:wrap}
+.game-layout{display:grid;grid-template-columns:1fr 262px;gap:16px;align-items:start}
+@media(max-width:900px){.game-layout{grid-template-columns:1fr}}
+.side-mascot{background:linear-gradient(170deg,var(--navy-2),var(--navy));color:#fff;border-radius:18px;padding:16px;text-align:center;position:sticky;top:14px;box-shadow:var(--shadow)}
+.side-mascot .speech{font-size:.85rem;margin-top:2px}.side-mascot .capy-holder{width:185px;margin:0 auto}
+.side-mascot button{background:#ffe9a8;border:none;border-radius:999px;padding:8px 13px;font-weight:900;font-size:.8rem;color:#231a00}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;position:relative;overflow:hidden}
+.qcard.shake{animation:shake2 .45s}
+@keyframes pop{0%{transform:scale(.985);opacity:.55}100%{transform:scale(1);opacity:1}}.pop{animation:pop .3s ease}
+/* ===== SCENE ANIMASI KASUS ===== */
+.scene{border-radius:16px;margin-bottom:16px;position:relative;overflow:hidden;border:1px solid rgba(0,0,0,.15)}
+.scene-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 16px 0;position:relative;z-index:6;flex-wrap:wrap}
+.scene-head h3{margin:1px 0 3px;font-family:"DM Serif Display",serif;font-size:1.3rem;line-height:1.1}
+.scene-head p{margin:0;font-size:.86rem;opacity:.92;max-width:56ch}
+.scene-head .case-no{font-size:.68rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.scene-btns{display:flex;gap:6px;flex:none}
+.scenebtn{background:rgba(255,255,255,.92);color:#102a4c;border:none;border-radius:999px;padding:6px 11px;font-weight:900;font-size:.74rem;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+.scene-stage{position:relative;height:196px;margin:10px 16px 0;border-radius:12px;overflow:hidden}
+@media(max-width:560px){.scene-stage{height:168px}}
+.scene-tags{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px 14px;position:relative;z-index:6}
+.scene-tags span{background:rgba(255,255,255,.94);color:#102a4c;font-size:.68rem;font-weight:900;padding:4px 9px;border-radius:999px;animation:floaty 2.8s ease-in-out infinite;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.scene.mini .scene-stage,.scene.mini .scene-tags{display:none}
+/* --- CCTV --- */
+.scene.cctv{background:linear-gradient(160deg,#1d2b26,#0d1712);color:#e8f5ec}
+.cctv-stage{background:radial-gradient(400px 200px at 50% 40%,#33523f,#16241b 75%)}
+.cctv-ui{position:absolute;inset:0;z-index:5;pointer-events:none;font-family:"Special Elite",monospace}
+.cctv-ui .rec{position:absolute;top:9px;left:12px;color:#ff5a4d;font-size:.85rem;animation:blinkC 1.1s steps(1) infinite;text-shadow:0 0 8px rgba(255,60,40,.8)}
+.cctv-ui .ts{position:absolute;top:9px;right:12px;font-size:.8rem;color:#cfe8d4}
+.cctv-ui .cam{position:absolute;bottom:8px;left:12px;font-size:.72rem;color:#9fc4a8}
+.cctv-ui .frame{position:absolute;inset:8px;border:2px solid rgba(255,255,255,.25);border-radius:6px}
+.scanlines{position:absolute;inset:0;z-index:4;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.05) 0 2px,transparent 2px 5px);mix-blend-mode:overlay}
+.grain{position:absolute;inset:-30px;z-index:4;pointer-events:none;opacity:.16;background-image:repeating-conic-gradient(rgba(255,255,255,.5) 0 .6%,transparent .6% 1.3%);animation:grainA .5s steps(3) infinite}
+@keyframes grainA{0%{transform:translate(0,0)}50%{transform:translate(-12px,7px)}100%{transform:translate(9px,-10px)}}
+.glitchwrap{position:absolute;inset:0;animation:glitchA 4.6s infinite}
+@keyframes glitchA{0%,91%,100%{transform:none;filter:none}92%{transform:translateX(-7px) skewX(-3deg);filter:hue-rotate(50deg)}94%{transform:translateX(6px)}96%{transform:none}}
+.fig{position:absolute;bottom:22px;width:44px;text-align:center;animation:walk 4.4s ease-in-out infinite}
+.fig .fh{width:21px;height:21px;border-radius:50%;background:#0a120c;margin:0 auto;box-shadow:inset 0 0 0 2px rgba(255,255,255,.12)}
+.fig .fb{width:30px;height:44px;border-radius:13px 13px 5px 5px;background:#0a120c;margin:2px auto 0}
+.fig.f2{animation-delay:-2.2s;transform:scaleX(-1)}
+@keyframes walk{0%,100%{left:9%}50%{left:62%}}
+.bubble{position:absolute;background:#f4fff6;color:#12271a;font-size:.72rem;font-weight:800;border-radius:11px;padding:6px 9px;max-width:150px;box-shadow:0 5px 12px rgba(0,0,0,.35);opacity:0;animation:bubbleA 4.4s infinite}
+@keyframes bubbleA{0%,8%{opacity:0;transform:translateY(8px) scale(.85)}16%,46%{opacity:1;transform:none}56%,100%{opacity:0}}
+.likesbox{position:absolute;right:14px;top:38px;z-index:6;background:rgba(6,14,9,.78);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:8px 13px;text-align:center;color:#fff}
+.likesbox .heart{font-size:1.15rem;animation:heartbeat 1s infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}30%{transform:scale(1.3)}}
+.likesbox b{font-size:1.15rem;display:block;line-height:1.1;font-variant-numeric:tabular-nums}
+.likesbox span{font-size:.64rem;letter-spacing:.1em;color:#ffc9c2;font-weight:800}
+/* --- REKA ADEGAN --- */
+.scene.reka{background:linear-gradient(150deg,#fdf3d7,#f6dfae);color:#4a3418}
+.reka-stage{background:linear-gradient(180deg,#fff8e6,#f9e7bd);border:1px dashed rgba(141,94,60,.45)}
+.threadsvg{position:absolute;inset:0;width:100%;height:100%}
+.threadsvg path{stroke:#c0392b;stroke-width:2.6;fill:none;stroke-dasharray:7 6;animation:threadMove 1.4s linear infinite;filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+@keyframes threadMove{to{stroke-dashoffset:-13}}
+.pin{position:absolute;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff8a7a,#c0392b 70%);box-shadow:0 3px 6px rgba(0,0,0,.35);z-index:3}
+.cluechip{position:absolute;z-index:4;background:#fff;color:#7a2d20;font-weight:900;font-size:.72rem;padding:6px 10px;border-radius:8px;box-shadow:0 6px 14px rgba(90,50,10,.3);border-bottom:3px solid #e7b7a5;animation:floaty 3.4s ease-in-out infinite;max-width:46%}
+.actor{position:absolute;bottom:14px;width:52px;text-align:center;z-index:2;animation:actorA 4.6s ease-in-out infinite}
+.actor .ah{width:24px;height:24px;border-radius:50%;margin:0 auto}
+.actor .ab{width:36px;height:48px;border-radius:15px 15px 6px 6px;margin:2px auto 0}
+.actor .an{font-size:.62rem;font-weight:900;background:rgba(255,255,255,.9);border-radius:999px;padding:1px 7px;display:inline-block;margin-top:3px;color:#4a3418}
+@keyframes actorA{0%,100%{transform:translateX(0)}50%{transform:translateX(56px)}}
+.reka-icon{position:absolute;right:16px;top:12px;width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(90,50,10,.25);animation:floaty 3.6s ease-in-out infinite;z-index:2}
+.reka-icon svg{width:40px;height:40px;color:#8b5e3c}
+/* --- PAPAN TULIS --- */
+.scene.papan{background:linear-gradient(160deg,#274b3a,#16281f);color:#eef7ee}
+.papan-stage{background:radial-gradient(420px 200px at 50% 30%,#315c47,#1b3527 78%);border:2px solid rgba(255,255,255,.14)}
+.papan-stage:before{content:"PAPAN KASUS — JANGAN DIHAPUS!";position:absolute;top:8px;left:0;right:0;text-align:center;font-size:.62rem;letter-spacing:.22em;color:rgba(255,255,255,.5);font-weight:800}
+.seqrow{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;padding:26px 10px 10px}
+.seqnum{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.65);color:#fff;font-family:"Special Elite",monospace;font-size:clamp(1.3rem,4.5vw,1.9rem);min-width:52px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:10px;opacity:0;animation:seqIn .5s forwards;box-shadow:0 6px 14px rgba(0,0,0,.3)}
+@keyframes seqIn{from{opacity:0;transform:translateY(14px) rotate(-4deg) scale(.8)}to{opacity:1;transform:none}}
+.seqnum.qmark{background:rgba(217,154,6,.25);border-color:var(--gold);color:#ffe9a8;animation:seqIn .5s forwards,qPulse 1.1s .6s ease-in-out infinite}
+@keyframes qPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.13) rotate(2deg)}}
+.seqdiff{font-family:"Special Elite",monospace;color:#ffe9a8;font-size:1rem;font-weight:700;opacity:0;animation:seqIn .5s forwards,diffBlink 1.2s 1s infinite}
+@keyframes diffBlink{0%,100%{opacity:1}50%{opacity:.35}}
+.seqtok{background:rgba(255,255,255,.1);border:1.6px dashed rgba(255,255,255,.6);color:#fff;font-weight:900;font-size:.86rem;padding:9px 13px;border-radius:10px;opacity:0;animation:seqIn .5s forwards}
+/* --- Soal --- */
+.qmeta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tag{font-size:.74rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px}
+.tag.cat{background:var(--navy);color:#fff}.tag.diff{background:var(--gold-soft);color:var(--gold-ink);border:1px solid var(--gold)}.tag.pts{background:var(--surface-2);border:1px solid var(--line)}
+.qtext{font-size:clamp(1.12rem,2.6vw,1.34rem);font-weight:750;line-height:1.5;margin:0 0 18px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:640px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;gap:12px;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:13px;padding:15px 16px;font-weight:650;color:var(--ink);transition:.15s;font-size:1.02rem}
+.opt:hover:not(:disabled){border-color:var(--gold);background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.09)}
+.opt .letter{flex:none;width:29px;height:29px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:900}
+.opt.correct{border-color:var(--teal);background:var(--teal-soft)}.opt.correct .letter{background:var(--teal);color:#fff}
+.opt.wrong{border-color:var(--red);background:var(--red-soft)}.opt.wrong .letter{background:var(--red);color:#fff}
+.opt.dim{opacity:.45}
+.feedback{margin-top:16px;border-radius:13px;padding:15px 17px;display:none}
+.feedback.show{display:block;animation:popIn .35s ease}
+.feedback.ok{background:var(--teal-soft);border:1px solid var(--teal)}.feedback.no{background:var(--red-soft);border:1px solid var(--red)}
+.feedback p{margin:0;color:var(--ink-soft)}
+@keyframes popIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.qfoot{display:flex;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:8px}
+.quit{background:none;border:none;color:var(--muted);font-weight:800}
+/* FX */
+#fx{position:fixed;inset:0;pointer-events:none;z-index:120;overflow:hidden}
+.confetto{position:absolute;width:10px;height:14px;top:-20px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+.flypts{position:fixed;z-index:130;font-weight:900;font-size:1.45rem;color:var(--teal);animation:flyUp 1s ease forwards;pointer-events:none;text-shadow:0 2px 8px rgba(255,255,255,.7)}
+@keyframes flyUp{to{transform:translateY(-72px) scale(1.2);opacity:0}}
+/* RANK UP OVERLAY */
+#rankup{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;pointer-events:none;background:radial-gradient(600px 340px at 50% 45%,rgba(16,36,63,.55),transparent 70%)}
+#rankup.show{display:flex}
+.rankup-card{background:linear-gradient(165deg,#fff8e0,#ffe9a8);color:#43300a;border:3px solid var(--gold);border-radius:22px;padding:22px 30px;text-align:center;box-shadow:0 30px 70px rgba(0,0,0,.5);animation:rankIn .45s cubic-bezier(.2,1.6,.4,1);max-width:min(480px,92vw)}
+@keyframes rankIn{from{transform:scale(.6) translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.rankup-card .ru-capy{width:130px;margin:-58px auto 0}
+.rankup-card h2{margin:2px 0 2px;font-family:"DM Serif Display",serif;font-size:1.7rem;color:#7a4d00}
+.rankup-card .ru-rank{font-size:1.25rem;font-weight:900;letter-spacing:.02em}
+.rankup-card p{margin:4px 0 0;font-size:.88rem;color:#6d5626;font-weight:700}
+.ru-stars{font-size:1.3rem;letter-spacing:.3em;color:var(--gold-2)}
+/* ============ HASIL / SERTIFIKAT ============ */
+.cert{background:linear-gradient(170deg,#fdf6dd,#f6ead0);color:#3c2c10;border-radius:14px;padding:12px;box-shadow:0 24px 50px rgba(60,42,10,.3);position:relative}
+.cert-inner{border:3px double #a68d55;border-radius:9px;padding:26px 26px 22px;position:relative;background:radial-gradient(500px 200px at 50% 0%,rgba(217,154,6,.12),transparent 70%)}
+.cert-inner:before,.cert-inner:after{content:"✦";position:absolute;color:#a68d55;font-size:1.1rem}
+.cert-inner:before{top:8px;left:12px}.cert-inner:after{top:8px;right:12px}
+.cert-head{text-align:center}
+.cert-head .org{font-family:"Special Elite",monospace;font-size:.72rem;letter-spacing:.2em;color:#7a6234}
+.cert-head h2{font-family:"DM Serif Display",serif;font-size:clamp(1.6rem,4.5vw,2.3rem);margin:4px 0 2px;color:#2f2310}
+.cert-head .sub2{font-size:.86rem;color:#6d5626;font-weight:700}
+.cert-name{font-family:"Caveat",cursive;font-size:clamp(2rem,6vw,3rem);text-align:center;color:#173763;border-bottom:2px solid #c9b37e;margin:14px auto 2px;max-width:560px;line-height:1.15;padding-bottom:4px}
+.cert-asal{text-align:center;font-family:"Special Elite",monospace;font-size:.85rem;color:#6d5626}
+.cert-rankline{text-align:center;margin:14px 0 4px}
+.cert-rankline .bigbadge{display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#ffe9a8;border-radius:999px;padding:9px 20px;font-weight:900;font-size:1.06rem;box-shadow:0 8px 18px rgba(16,36,63,.35)}
+.cert-score{text-align:center;font-size:clamp(2.4rem,7vw,3.4rem);font-weight:900;line-height:1.05;color:#2f2310}
+.cert-score small{display:block;font-size:.78rem;letter-spacing:.14em;color:#7a6234;font-weight:800}
+.cert-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:16px 0}
+@media(max-width:600px){.cert-stats{grid-template-columns:repeat(2,1fr)}}
+.cert-stats .s{background:rgba(255,255,255,.55);border:1px solid #d9c69c;border-radius:12px;padding:11px;text-align:center}
+.cert-stats .s b{font-size:1.4rem;display:block;color:#2f2310}.cert-stats .s span{font-size:.7rem;font-weight:800;text-transform:uppercase;color:#7a6234;letter-spacing:.06em}
+.cert-cats{max-width:640px;margin:0 auto}
+.cert-cats h3{font-size:.92rem;margin:0 0 8px;color:#43331a}
+.catbreak{display:grid;gap:9px}
+.catbreak .row{display:grid;grid-template-columns:150px 1fr 52px;gap:10px;align-items:center;font-size:.88rem}
+@media(max-width:520px){.catbreak .row{grid-template-columns:104px 1fr 44px}}
+.catbreak .bar{height:10px;background:rgba(90,70,30,.15);border:1px solid #c9b37e;border-radius:999px;overflow:hidden}
+.catbreak .bar i{display:block;height:100%;background:var(--teal);transition:width .8s}
+.cert-quote{max-width:620px;margin:18px auto 0;text-align:center;font-family:"DM Serif Display",serif;font-style:italic;font-size:1.02rem;color:#54401a}
+.cert-quote small{display:block;font-family:"Plus Jakarta Sans",sans-serif;font-style:normal;font-weight:800;font-size:.76rem;letter-spacing:.08em;margin-top:5px;color:#7a6234}
+.cert-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-top:20px;flex-wrap:wrap}
+.cert-sign{font-size:.8rem;color:#6d5626;font-weight:700;text-align:center}
+.cert-sign .sig{font-family:"Caveat",cursive;font-size:1.6rem;color:#173763;display:block;line-height:1}
+.cert-seal{width:104px;height:104px;border-radius:50%;border:3px solid rgba(192,57,43,.75);color:rgba(192,57,43,.85);display:flex;align-items:center;justify-content:center;text-align:center;font-family:"Special Elite",monospace;font-size:.6rem;font-weight:700;letter-spacing:.08em;transform:rotate(-11deg);padding:10px;background:rgba(253,236,234,.3)}
+.ig-cta{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:18px;background:var(--navy);color:#fff;border-radius:14px;padding:14px 18px;text-decoration:none;font-weight:900;font-size:1.02rem;box-shadow:var(--shadow)}
+.ig-cta:hover{background:var(--navy-2)}
+.autoreset{text-align:center;color:var(--muted);font-weight:800;font-size:.86rem;margin-top:14px}
+footer.site{max-width:1060px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:.82rem;text-align:center}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="fx"></div>
+
+<!-- INTRO SINEMATIK -->
+<div id="intro" role="dialog" aria-label="Intro Kantor Detektif Nalar">
+  <div class="intro-stage">
+    <div class="office">
+      <div class="lamp l1" style="left:16%"><div class="bulb"></div><div class="cone"></div></div>
+      <div class="lamp l2" style="left:47%"><div class="bulb"></div><div class="cone"></div></div>
+      <div class="lamp l3" style="right:16%"><div class="bulb"></div><div class="cone"></div></div>
+      <div class="caseboard"><h4>🗂️ PAPAN KASUS — BENANG MERAH</h4><div class="cards"><div class="mini">KLAIM VIRAL?</div><div class="mini">SIAPA SUMBERNYA?</div><div class="mini">BUKTI MANA?</div></div><svg viewBox="0 0 300 44" preserveAspectRatio="none"><path d="M30 8 Q90 40 150 14 T280 10" stroke="#e04434" stroke-width="3" fill="none"/><circle cx="30" cy="8" r="5" fill="#e04434"/><circle cx="150" cy="14" r="5" fill="#e04434"/><circle cx="280" cy="10" r="5" fill="#e04434"/></svg></div>
+      <div class="shelf"><div class="row"><div class="file" style="background:#8b5e3c"></div><div class="file" style="background:#b5541d"></div><div class="file" style="background:#0e7c6b"></div><div class="file" style="background:#d99a06"></div></div><div class="row"><div class="file" style="background:#173763"></div><div class="file" style="background:#a67c52"></div><div class="file" style="background:#c0392b"></div><div class="file" style="background:#5d4037"></div></div></div>
+      <div class="map2"><i style="left:20%;top:26%"></i><i style="left:58%;top:56%"></i><i style="left:78%;top:20%"></i></div>
+      <div class="desk"></div>
+    </div>
+    <div class="door-beam"></div>
+    <div class="intro-capy" id="intro-capy"></div>
+    <div class="intro-letter">📜 SURAT PENGANGKATAN<br><b>Detektif Magang</b> — Kantor Detektif Nalar<br><span style="font-size:.74rem">Ditandatangani: Kepala Detektif Capy 🐾</span></div>
+    <div class="intro-cap" id="intro-cap">…</div>
+  </div>
+  <div class="intro-prog">KANTOR DETEKTIF NALAR • EST. UNAIR</div>
+  <button type="button" class="intro-skip" id="btn-skip-intro">Lewati ▶</button>
+</div>
+
+<!-- RANK UP -->
+<div id="rankup"><div class="rankup-card"><div class="ru-capy" id="rankup-capy"></div><div class="ru-stars" id="rankup-stars">★</div><h2>🎖️ NAIK PANGKAT!</h2><div class="ru-rank" id="rankup-name">Detektif Muda</div><p id="rankup-msg">Capy menyematkan lencana barumu. Kasus-kasus menanti!</p></div></div>
+
+<div class="topbar"><div class="brand"><span style="font-size:1.35rem">🕵️</span><span>Akademi Detektif Nalar<small>UKM Penalaran • Universitas Airlangga</small></span></div><div class="top-actions"><span class="pill">🔎 Mode Booth Showcase</span><button type="button" class="sndbtn" id="btn-sound" aria-pressed="false">🔇 Suara: Mati</button></div></div>
+
+<main class="wrap">
+<!-- START / PENDAFTARAN -->
+<section id="screen-start">
+<div class="hero-grid">
+<div class="hero"><span class="kicker">🗂️ Kantor Detektif Nalar membuka rekrutmen</span><h1>Akademi <span class="hl">Detektif Nalar</span></h1><p class="lede">Daftar sebagai <b>Detektif Magang</b>, pecahkan berkas kasus satu per satu dalam 3 menit, dan <b>naik pangkat</b> sampai jadi Kepala Detektif Nalar. Kepala Detektif <b>Capy</b> — capybara berjaket varsity Penalaran — mengawasi setiap deduksimu.</p><div class="chips"><span class="chip">🧩 Logika &amp; Deduksi</span><span class="chip">🎭 Sesat Pikir</span><span class="chip">🔬 Bukti &amp; Klaim</span><span class="chip">🔢 Pola &amp; Angka</span></div>
+<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap"><span style="background:var(--surface);border:1px solid var(--line);padding:10px 12px;border-radius:12px;font-weight:800;font-size:.85rem">⏱️ 180 detik • 28 berkas</span><span style="background:var(--surface);border:1px solid var(--line);padding:10px 12px;border-radius:12px;font-weight:800;font-size:.85rem">🎖️ 7 pangkat detektif</span><span style="background:var(--surface);border:1px solid var(--line);padding:10px 12px;border-radius:12px;font-weight:800;font-size:.85rem">🔥 Streak ≥3 = +25</span></div></div>
+<div class="mascot-stage" id="hero-mascot">
+<span class="float-clue" style="left:14px;top:46px">🔍 PETUNJUK?</span><span class="float-clue" style="right:14px;top:86px;animation-delay:.6s">🧵 BENANG MERAH</span><span class="float-clue" style="left:18px;bottom:70px;animation-delay:1.1s">👣 JEJAK KAKI</span><span class="float-clue" style="right:16px;bottom:110px;animation-delay:.3s">💡 AHA!</span>
+<div class="speech"><span class="hand">Elementary, kawan!</span><span id="hero-speech">“Aku Kepala Detektif Capy. Isi surat pengangkatanmu di bawah — kantor ini butuh penalar sepertimu!”</span></div>
+<div class="capy-wrap" id="hero-capy-wrap" style="width:min(300px,80vw);margin:0 auto"></div>
+<div class="mascot-name">Kepala Detektif Capy</div><div class="mascot-role">Capybara • Jaket Varsity Penalaran • Kaca Pembesar Emas</div>
+</div></div>
+
+<div class="grid">
+<div class="paper" id="paper-card">
+<div class="holes"><i></i><i></i><i></i><i></i></div>
+<div class="stamp" id="stamp">★ DITERIMA ★</div>
+<div class="pin-badge" id="pin-badge">Detektif Magang</div>
+<div class="paper-head"><div class="org">KANTOR DETEKTIF NALAR • UKM PENALARAN UNAIR</div><h2>Surat Pengangkatan Detektif</h2><div class="no">No. Berkas: NALAR/2026/MAGANG — Rahasia • Hanya untuk Penalar</div></div>
+<form id="start-form">
+<label class="f" for="input-name">Nama Detektif</label>
+<input type="text" id="input-name" maxlength="24" placeholder="Ketik namamu di sini…" autocomplete="off"/>
+<div class="typed-line" id="typed-line">Nama tercetak: <span id="typed-name">—</span> <span class="caret"></span></div>
+<label class="f" for="input-asal">Asal Detektif</label>
+<input type="text" id="input-asal" maxlength="40" placeholder="cth. SMA Negeri 1 Surabaya / Mahasiswa UNAIR" autocomplete="off"/>
+<ul class="rules"><li><span class="n">1</span><span><b>Waktu 3 menit.</b> 30 detik terakhir layar berdenyut merah &amp; Capy panik!</span></li><li><span class="n">2</span><span><b>Poin:</b> Mudah 100 · Sedang 150 · Sulit 200. Streak ≥3 memberi <b>bonus +25</b>.</span></li><li><span class="n">3</span><span><b>Naik pangkat</b> tiap beberapa kasus benar — salah tidak menurunkan pangkat.</span></li><li><span class="n">4</span><span>Jawab cepat dengan tombol <b>1–4 / A–D</b>. Selesaikan semua kasus untuk <b>bonus sisa waktu</b>.</span></li></ul>
+<button type="submit" class="btn" id="btn-start">🖋️ SUMPAH DETEKTIF — MULAI INVESTIGASI</button>
+</form></div>
+<div class="card"><div class="lb-head"><h2>🏆 Leaderboard Booth</h2></div><p class="lb-note">Para detektif terbaik sesi ini — nama, pangkat, dan skor tertinggi.</p><div id="lb-start"></div></div>
+</div>
+</section>
+
+<!-- GAME -->
+<section id="screen-game" class="hidden">
+<div class="hud"><div class="stat" id="stat-time"><div style="font-size:1.35rem">⏱️</div><div><div class="v" id="hud-time">3:00</div><div class="k">Sisa waktu</div></div></div><div class="stat" id="stat-score"><div style="font-size:1.35rem">⭐</div><div><div class="v" id="hud-score">0</div><div class="k">Skor</div></div></div><div class="stat" id="stat-streak"><div style="font-size:1.35rem">🔥</div><div><div class="v" id="hud-streak">0×</div><div class="k">Streak benar</div></div></div><div class="stat"><div style="font-size:1.35rem">🗂️</div><div><div class="v" id="hud-count">0</div><div class="k">Kasus terjawab</div></div></div></div>
+<div class="rankbar"><div class="rb-badge" id="rb-badge">🎖️</div><div class="rb-main"><div class="rb-name"><small>PANGKAT SAAT INI</small><span id="rb-name">Detektif Magang</span></div><div class="rb-track"><i id="rb-fill"></i></div></div><div class="rb-next" id="rb-next">Pecahkan 2 kasus benar → Detektif Muda</div></div>
+<div class="timebar" id="timebar"><i></i></div>
+<div class="progressline"><span id="prog-text">Kasus 1 dimulai…</span><span>Tekan 1–4 / A–D untuk menjawab cepat ⚡</span></div>
+<div class="game-layout">
+<div class="qcard" id="qcard"><div id="q-scene"></div><div class="qmeta"><span class="tag cat" id="q-cat">Logika</span><span class="tag diff" id="q-diff">Sedang</span><span class="tag pts" id="q-pts">150 poin</span></div><p class="qtext" id="q-text"></p><div class="opts" id="q-opts"></div><div class="feedback" id="q-feedback"></div><div class="qfoot"><span style="font-size:.82rem;color:var(--muted)">💡 Animasi di panel kasus adalah reka adegannya — amati petunjuknya!</span><button type="button" class="quit" id="btn-quit">Akhiri putaran ✕</button></div></div>
+<aside class="side-mascot"><div class="speech" id="game-speech">“Tenang, baca premisnya pelan-pelan… detektif hebat tidak terburu-buru.”</div><div class="capy-wrap" id="game-capy-wrap"><div class="capy-holder" id="game-capy-holder"></div></div><div class="mascot-name">Detektif Capy</div><p style="font-size:.8rem;opacity:.9;margin:6px 0 10px" id="capy-mood">Sedang mengamati petunjuk… 👃🔍</p><button type="button" id="btn-capy-talk">💬 Minta Semangat dari Capy</button></aside>
+</div></section>
+
+<!-- RESULT -->
+<section id="screen-result" class="hidden">
+<div class="cert"><div class="cert-inner">
+<div class="cert-head"><div class="org">KANTOR DETEKTIF NALAR • UKM PENALARAN • UNIVERSITAS AIRLANGGA</div><h2>📜 Surat Kenaikan Pangkat</h2><div class="sub2">Diberikan kepada detektif yang telah menuntaskan investigasi berpikir kritis</div></div>
+<div class="cert-name" id="res-player">Pemain</div>
+<div class="cert-asal" id="res-asal">—</div>
+<div style="width:min(210px,55vw);margin:10px auto 0" id="result-capy-wrap"></div>
+<div class="cert-rankline"><span class="bigbadge" id="res-rankbadge">🎖️ Detektif Magang</span></div>
+<div class="cert-score"><span id="res-score">0</span><small>SKOR AKHIR INVESTIGASI</small></div>
+<p id="res-msg" style="text-align:center;color:#54401a;max-width:54ch;margin:10px auto 0;font-weight:600"></p>
+<div class="cert-stats"><div class="s"><b id="res-correct">0</b><span>Kasus benar</span></div><div class="s"><b id="res-answered">0</b><span>Dijawab</span></div><div class="s"><b id="res-acc">0%</b><span>Akurasi</span></div><div class="s"><b id="res-streak">0×</b><span>Streak terbaik</span></div></div>
+<div class="cert-cats"><h3>Performa per kategori</h3><div class="catbreak" id="res-catbreak"></div></div>
+<p id="res-bonus" style="font-weight:800;text-align:center;margin-top:14px;color:#54401a"></p>
+<div class="cert-quote">“Penalaran membiasakan kami untuk tidak berhenti pada paham, melainkan berani mengambil peran dan melangkah dengan kesadaran.”<small>— KABINET CITTA SAHITA</small></div>
+<div class="cert-foot"><div class="cert-sign">Kepala Detektif Nalar<span class="sig">Capy 🐾</span>Detektif Capy</div><div class="cert-seal">KANTOR DETEKTIF NALAR ★ RESMI ★ UNAIR</div><div class="cert-sign">Surabaya, sesi booth ini<span class="sig" style="font-size:1.15rem" id="res-rank2">Detektif Magang</span>Pangkat akhir</div></div>
+</div></div>
+<a class="ig-cta" href="https://www.instagram.com/ukm_penalaran" target="_blank" rel="noopener">📸 Ikuti @ukm_penalaran di Instagram — gabung UKM Penalaran UNAIR!</a>
+<div class="card" style="margin-top:18px"><div class="lb-head"><h2>🏆 Leaderboard Booth</h2><button type="button" class="btn ghost small" id="btn-reset-lb">Reset leaderboard</button></div><p class="lb-note">Peringkat sesi booth ini — nama, lencana pangkat, dan skor.</p><div id="lb-result"></div><div class="btnrow" style="margin-top:18px"><button type="button" class="btn" id="btn-again">🔁 Main Lagi — Kasus Baru</button><button type="button" class="btn secondary" id="btn-home">👋 Pemain Berikutnya</button></div><p class="autoreset" id="autoreset-note"></p></div>
+</section>
+</main>
+<footer class="site">UKM Penalaran Universitas Airlangga — bersama Detektif Capy, melatih nalar, mengasah logika, membiasakan berpikir berbasis bukti. 🐾</footer>
+
+<script>
+"use strict";
+/* ================================================================
+   ⚙️ PENGATURAN YANG MUDAH DIUBAH
+   ----------------------------------------------------------------
+   • TEKS & AMBANG PANGKAT  → ubah konstanta RANKS di bawah ini
+     (min = jumlah jawaban benar untuk meraih pangkat tersebut).
+   • DURASI INTRO SINEMATIK → ubah INTRO_TOTAL_MS (milidetik,
+     total rangkaian intro; anjurannya ≤ 8000) dan/atau INTRO_STEPS.
+   • DURASI AUTO-RESET HASIL → AUTO_RESET_S (detik, default 45).
+   • WAKTU BERMAIN → TOTAL_TIME (detik, default 180).
+   ================================================================ */
+var RANKS=[
+ {min:0, name:"Detektif Magang"},
+ {min:2, name:"Detektif Muda"},
+ {min:4, name:"Inspektur Dua"},
+ {min:7, name:"Inspektur Satu"},
+ {min:10,name:"Komisaris"},
+ {min:13,name:"Komisaris Besar"},
+ {min:17,name:"Kepala Detektif Nalar"}
+];
+var INTRO_TOTAL_MS=7600; /* total intro ≈ 7,6 detik (maks 8 detik) */
+var AUTO_RESET_S=45;
+var TOTAL_TIME=180;
+var POINTS={1:100,2:150,3:200},DIFF_NAME={1:"Mudah",2:"Sedang",3:"Sulit"};
+var CAT_LABEL={"Logika":"Logika & Deduksi","Sesat Pikir":"Sesat Pikir","Bukti & Klaim":"Bukti & Klaim","Pola & Angka":"Pola & Angka"};
+function rankFor(correct){var r=RANKS[0],idx=0;for(var i=0;i<RANKS.length;i++){if(correct>=RANKS[i].min){r=RANKS[i];idx=i}}return{rank:r,index:idx,next:idx+1<RANKS.length?RANKS[idx+1]:null}}
+function rankStars(idx){var s="";for(var i=0;i<=idx;i++)s+="★";return s||"★"}
+
+/* ================= CAPY — SVG =================
+   Capybara coklat + topi deerstalker tartan krem-coklat (dua brim)
+   + jaket varsity navy berlengan krem & huruf "P" emas di dada kiri
+   (mengikuti jaket UKM Penalaran pada foto) + kaca pembesar emas. */
+function capySVG(mood){
+ var uid="t"+Math.random().toString(36).slice(2,7);
+ var mouth,extra="";
+ if(mood==="happy"){mouth='<path d="M196 176 Q222 196 248 176 Q222 186 196 176Z" fill="#5d2f16"/><path d="M204 180 Q222 190 240 180" stroke="#3d2314" stroke-width="4" fill="none" stroke-linecap="round"/>';extra='<circle cx="168" cy="164" r="10" fill="#e88a6a" opacity=".55"/><circle cx="278" cy="164" r="10" fill="#e88a6a" opacity=".55"/>';}
+ else if(mood==="sad"){mouth='<path d="M202 188 Q222 174 242 188" stroke="#3d2314" stroke-width="5" fill="none" stroke-linecap="round"/>';extra='<g class="dizzy"><text x="150" y="34" font-size="24" fill="#d99a06">★</text><text x="196" y="18" font-size="19" fill="#e879a6">★</text><text x="240" y="32" font-size="22" fill="#0e7c6b">★</text></g><path d="M158 128 l14 14 M172 128 l-14 14" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/><path d="M262 128 l14 14 M276 128 l-14 14" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/>';}
+ else if(mood==="panic"){mouth='<ellipse cx="222" cy="184" rx="10" ry="12" fill="#5d2f16"/>';extra='<path class="sweat" d="M128 96 q-8 14 0 20 q8 -6 0 -20" fill="#7ec3ee"/><path class="sweat" style="animation-delay:.4s" d="M310 92 q-8 14 0 20 q8 -6 0 -20" fill="#7ec3ee"/><path d="M150 108 l20 -8 M262 100 l20 8" stroke="#3d2314" stroke-width="4" stroke-linecap="round"/>';}
+ else if(mood==="proud"){mouth='<path d="M200 178 Q222 190 244 176" stroke="#3d2314" stroke-width="5" fill="none" stroke-linecap="round"/>';extra='<circle cx="150" cy="238" r="13" fill="#d99a06" stroke="#ffe9a8" stroke-width="3"/><path d="M150 229 l3 6 6 1 -4.5 4.5 1 6.5 -5.5 -3 -5.5 3 1 -6.5 -4.5 -4.5 6 -1Z" fill="#fff3c4"/><text x="86" y="60" font-size="20" fill="#ffe9a8">✦</text><text x="300" y="52" font-size="16" fill="#ffe9a8">✦</text>';}
+ else{mouth='<path d="M202 178 Q222 186 242 178" stroke="#3d2314" stroke-width="5" fill="none" stroke-linecap="round"/>';}
+ var eyes = mood==="sad" ? "" : '<g class="eyes"><ellipse cx="172" cy="136" rx="11" ry="14" fill="#2b1a0e"/><ellipse cx="254" cy="136" rx="11" ry="14" fill="#2b1a0e"/><circle cx="176" cy="130" r="4" fill="#fff"/><circle cx="258" cy="130" r="4" fill="#fff"/></g>';
+ return '<svg class="capy-svg" viewBox="0 0 360 330" role="img" aria-label="Capybara Kepala Detektif Capy bertopi deerstalker, berjaket varsity navy Penalaran, memegang kaca pembesar emas">'
+ +'<defs><pattern id="'+uid+'" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="#cbb27f"/><path d="M0 8H16M8 0V16" stroke="#8b5e3c" stroke-width="3.4" opacity=".6"/><path d="M0 0H16M0 16H16" stroke="#a33d2a" stroke-width="1.4" opacity=".45"/></pattern></defs>'
+ +'<ellipse cx="180" cy="304" rx="118" ry="13" fill="rgba(0,0,0,.18)"/>'
+ /* badan + jaket varsity */
+ +'<path d="M84 236 Q80 300 118 302 L242 302 Q280 300 276 236 L262 208 L98 208Z" fill="#16283f"/>'
+ +'<path d="M152 210 L180 252 L208 210 L202 302 L158 302Z" fill="#7ea6c9"/><path d="M152 210 L180 252 L208 210" fill="none" stroke="#e8eefc" stroke-width="3"/>'
+ +'<circle cx="180" cy="262" r="4" fill="#f2f5ff"/><circle cx="180" cy="278" r="4" fill="#f2f5ff"/><circle cx="180" cy="294" r="4" fill="#f2f5ff"/>'
+ +'<path d="M96 214 Q66 232 74 268 Q78 292 98 290 L106 240Z" fill="#efe3c8"/><path d="M264 214 Q294 232 286 268 Q282 292 262 290 L254 240Z" fill="#efe3c8"/>'
+ +'<path d="M76 272 l26 -4 M78 284 l25 -4" stroke="#16283f" stroke-width="4"/>'
+ +'<path d="M284 268 l-26 -4 M282 280 l-25 -4" stroke="#16283f" stroke-width="4"/>'
+ +'<path d="M98 208 L120 196 L132 214 L112 224Z" fill="#efe3c8"/><path d="M262 208 L240 196 L228 214 L248 224Z" fill="#efe3c8"/>'
+ +'<text x="222" y="252" font-size="34" font-weight="900" fill="#e9b83a" stroke="#a87408" stroke-width="1" font-family="Plus Jakarta Sans,sans-serif">P</text>'
+ /* kepala */
+ +'<rect x="92" y="88" width="176" height="116" rx="56" fill="#a9743f"/>'
+ +'<path d="M176 122 L268 122 L268 168 Q268 200 226 202 L186 202 Q172 202 172 168Z" fill="#8b5e3c"/>'
+ +'<ellipse cx="238" cy="146" rx="14" ry="9" fill="#33200f"/><ellipse cx="242" cy="143" r="3" width="6" height="5" fill="#5d4037"/>'
+ +'<path d="M222 158 q10 6 2 12" stroke="#33200f" stroke-width="3.4" fill="none" stroke-linecap="round"/>'
+ + eyes + mouth + extra
+ +'<circle cx="104" cy="92" r="16" fill="#8b5e3c"/><circle cx="104" cy="92" r="8" fill="#c99a67"/><circle cx="256" cy="88" r="16" fill="#8b5e3c"/><circle cx="256" cy="88" r="8" fill="#c99a67"/>'
+ /* deerstalker tartan, dua brim depan-belakang */
+ +'<path d="M84 104 Q66 100 62 88 Q88 66 118 74 L112 100Z" fill="url(#'+uid+')" stroke="#6d4c2f" stroke-width="3"/>'
+ +'<path d="M276 104 Q296 100 300 86 Q272 62 242 72 L250 100Z" fill="url(#'+uid+')" stroke="#6d4c2f" stroke-width="3"/>'
+ +'<path d="M104 96 Q110 34 180 32 Q250 34 256 96 Q180 74 104 96Z" fill="url(#'+uid+')" stroke="#6d4c2f" stroke-width="3"/>'
+ +'<rect x="168" y="22" width="24" height="16" rx="7" fill="#8b5e3c"/>'
+ +'<path d="M104 96 L96 128 M256 96 L264 128" stroke="#6d4c2f" stroke-width="7" stroke-linecap="round"/>'
+ /* kaca pembesar emas */
+ +'<g class="capy-glass"><circle cx="284" cy="196" r="37" fill="rgba(180,230,255,.32)" stroke="#d99a06" stroke-width="7"/><circle cx="272" cy="184" r="10" fill="rgba(255,255,255,.5)"/><line x1="308" y1="222" x2="336" y2="256" stroke="#7a4d12" stroke-width="12" stroke-linecap="round"/><circle cx="272" cy="240" r="15" fill="#a9743f"/></g>'
+ +'</svg>';
+}
+
+/* ================= DATA SOAL (tetap — 28 soal) ================= */
+var QUESTIONS=[
+{c:"Logika",d:1,q:"Semua anggota UKM Penalaran mengikuti pelatihan logika. Rani adalah anggota UKM Penalaran. Kesimpulan yang PASTI benar adalah…",o:["Rani mengikuti pelatihan logika","Rani pasti menjadi juara debat","Semua yang mengikuti pelatihan logika adalah anggota UKM","Rani pasti suka membaca buku"],a:0,e:"Silogisme: jika semua anggota mengikuti pelatihan dan Rani adalah anggota, maka Rani pasti mengikutinya."},
+{c:"Sesat Pikir",d:1,q:"Temanmu menolak idemu dengan berkata: “Ah, kamu kan belum pernah jadi ketua. Pendapatmu soal acara ini pasti tidak berguna.” Sesat pikir yang terjadi adalah…",o:["Menyerang pribadi, bukan argumen (ad hominem)","Dilema palsu","Generalisasi terburu-buru","Mengikuti yang populer (bandwagon)"],a:0,e:"Ad hominem: argumen ditolak dengan menyerang orangnya, bukan menguji isi argumennya."},
+{c:"Bukti & Klaim",d:1,q:"Sebuah unggahan viral mengklaim minuman herbal X “bisa menyembuhkan semua penyakit”. Langkah berpikir kritis PERTAMA yang paling tepat adalah…",o:["Memeriksa siapa sumber klaimnya dan apa bukti ilmiahnya","Langsung membagikannya agar banyak yang tahu","Mempercayainya karena jumlah likes-nya banyak","Membelinya sebelum kehabisan"],a:0,e:"Klaim luar biasa butuh bukti kuat. Likes dan testimoni bukan bukti — cek sumber dan bukti ilmiahnya."},
+{c:"Pola & Angka",d:1,q:"Perhatikan pola berikut: 3, 6, 11, 18, 27, … Angka berikutnya adalah…",o:["36","38","40","41"],a:1,e:"Selisihnya: +3, +5, +7, +9, jadi berikutnya +11 → 27 + 11 = 38."},
+{c:"Bukti & Klaim",d:1,q:"Pernyataan mana yang merupakan OPINI, bukan fakta?",o:["Universitas Airlangga terletak di Surabaya","Indonesia merdeka pada 17 Agustus 1945","Kampus kami adalah kampus paling menyenangkan di Indonesia","Air mendidih pada 100°C pada tekanan udara 1 atmosfer"],a:2,e:"“Paling menyenangkan” adalah penilaian subjektif — ciri opini."},
+{c:"Logika",d:2,q:"Premis: “Setiap kali hujan deras, acara luar ruangan dibatalkan.” Hari ini TIDAK hujan deras. Kesimpulan yang tepat adalah…",o:["Acara pasti tetap berjalan","Acara pasti dibatalkan","Tidak bisa disimpulkan apakah acara dibatalkan atau tidak","Acara pasti dipindah ke dalam ruangan"],a:2,e:"Premis hanya bicara kondisi hujan. Tidak hujan bukan berarti acara pasti berjalan."},
+{c:"Bukti & Klaim",d:2,q:"Di sebuah kota, penjualan es krim naik bersamaan dengan naiknya kasus tenggelam di pantai. Kesimpulan paling tepat adalah…",o:["Es krim menyebabkan orang tenggelam","Keduanya mungkin dipengaruhi faktor ketiga, misalnya musim panas","Kasus tenggelam menyebabkan penjualan es krim naik","Data seperti ini tidak perlu dianalisis"],a:1,e:"Korelasi bukan sebab-akibat. Musim panas menjelaskan keduanya."},
+{c:"Sesat Pikir",d:1,q:"“Semua teman saya sudah memakai aplikasi ini, jadi aplikasi ini pasti aman dan yang terbaik.” Sesat pikir ini adalah…",o:["Mengikuti yang populer (bandwagon)","Lereng licin (slippery slope)","Orang-orangan sawah (strawman)","Dilema palsu"],a:0,e:"Bandwagon: dinilai baik hanya karena banyak orang melakukannya."},
+{c:"Pola & Angka",d:2,q:"Dita duduk di sebelah kiri Eka. Eka di sebelah kiri Fajar. Fajar di sebelah kiri Gilang. Siapa paling kiri?",o:["Eka","Fajar","Dita","Gilang"],a:2,e:"Urutannya: Dita – Eka – Fajar – Gilang. Paling kiri Dita."},
+{c:"Bukti & Klaim",d:2,q:"Untuk mendukung usulan “perpustakaan buka lebih lama saat pekan ujian”, argumen mana yang PALING kuat?",o:["“Menurut saya pribadi, itu ide yang bagus.”","Data survei: 78% dari 412 mahasiswa mengaku kehabisan tempat belajar saat pekan ujian, dan ruang baca penuh setiap malam","“Kampus sebelah juga melakukannya.”","“Kalau tidak dibuka lebih lama, mahasiswa pasti gagal ujian.”"],a:1,e:"Argumen terkuat ditopang data relevan, spesifik, dan bisa diperiksa."},
+{c:"Sesat Pikir",d:1,q:"“Kalau kamu tidak ikut acara kami, berarti kamu memang tidak peduli dengan UKM.” Kalimat ini mengandung sesat pikir…",o:["Ad hominem","Dilema palsu — seolah hanya ada dua pilihan","Strawman","Bandwagon"],a:1,e:"Dilema palsu: dipersempit jadi dua pilihan ekstrem, padahal ada kemungkinan lain."},
+{c:"Bukti & Klaim",d:2,q:"Survei kepuasan hanya diikuti 12 orang dari 2.000 mahasiswa, lalu diumumkan sebagai “pendapat seluruh mahasiswa”. Kelemahan utamanya adalah…",o:["Pertanyaannya terlalu panjang","Sampelnya terlalu kecil sehingga tidak mewakili populasi","Hasilnya diumumkan terlalu cepat","Survei seharusnya tidak boleh dilakukan"],a:1,e:"12 orang tidak bisa mewakili 2.000 mahasiswa."},
+{c:"Logika",d:3,q:"Ingkaran (negasi) yang tepat dari “Semua peserta lulus seleksi” adalah…",o:["Semua peserta tidak lulus seleksi","Tidak ada peserta yang lulus seleksi","Ada peserta yang tidak lulus seleksi","Peserta yang lulus hanya sebagian kecil"],a:2,e:"Negasi dari “semua” adalah “ada yang tidak”."},
+{c:"Pola & Angka",d:2,q:"Rata-rata nilai sebuah kelas NAIK. Apakah itu berarti SEMUA siswa nilainya naik?",o:["Ya, rata-rata naik berarti semua naik","Tidak — rata-rata bisa naik meski nilai sebagian siswa justru turun","Ya, jika jumlah siswanya tetap","Tidak bisa ada rata-rata yang naik"],a:1,e:"Rata-rata adalah ringkasan kelompok, bukan gambaran tiap individu."},
+{c:"Bukti & Klaim",d:2,q:"Mana bukti yang LEBIH kuat untuk menyimpulkan sebuah obat benar-benar berkhasiat?",o:["Testimoni satu orang yang merasa sembuh","Iklan produk yang menampilkan dokter sebagai bintang tamu","Uji klinis acak terkontrol dengan kelompok pembanding dan jumlah peserta besar","Jumlah pengikut akun media sosial produsennya"],a:2,e:"Uji klinis acak terkontrol memisahkan efek obat dari sugesti dan kebetulan."},
+{c:"Sesat Pikir",d:2,q:"A: “Kita perlu mengurangi sampah plastik di kantin.” B: “Jadi maksudmu semua orang dilarang makan di kantin? Itu keterlaluan!” Sesat pikir B adalah…",o:["Strawman — memelintir argumen lawan jadi ekstrem","Ad hominem","Bandwagon","Lereng licin"],a:0,e:"Strawman: argumen diganti versi ekstrem yang lebih mudah diserang."},
+{c:"Logika",d:3,q:"“Untuk menjadi pengurus, mahasiswa HARUS lulus seleksi. Budi lulus seleksi.” Apakah Budi PASTI menjadi pengurus?",o:["Ya, karena ia sudah lulus seleksi","Tidak pasti — lulus seleksi adalah syarat perlu, belum tentu syarat cukup","Ya, jika ia juga mahasiswa aktif","Tidak, karena yang lulus tidak bisa jadi pengurus"],a:1,e:"Syarat perlu ≠ syarat cukup."},
+{c:"Pola & Angka",d:1,q:"Jika 5 mesin dalam 5 menit menghasilkan 5 komponen, berapa menit yang dibutuhkan 100 mesin untuk menghasilkan 100 komponen?",o:["100 menit","20 menit","5 menit","1 menit"],a:2,e:"Satu mesin = 1 komponen dalam 5 menit. 100 mesin bersamaan tetap 5 menit."},
+{c:"Sesat Pikir",d:1,q:"Seseorang hanya membaca berita yang mendukung pendapatnya dan mengabaikan yang berlawanan. Kecenderungan ini disebut…",o:["Bias konfirmasi","Efek bandwagon","Sesat pikir strawman","Generalisasi"],a:0,e:"Bias konfirmasi: mencari yang membenarkan keyakinan awal saja."},
+{c:"Bukti & Klaim",d:1,q:"Untuk bahan tugas ilmiah, sumber mana yang PALING kredibel?",o:["Unggahan anonim di media sosial","Pesan berantai di grup percakapan","Artikel jurnal ilmiah yang melalui penelaahan sejawat (peer review)","Iklan produk yang mengklaim “terbukti ilmiah”"],a:2,e:"Peer review berarti isi telah diuji ahli lain sebelum terbit."},
+{c:"Logika",d:2,q:"Andi lebih tinggi dari Bima. Candra lebih pendek dari Bima. Urutan dari paling tinggi ke paling pendek adalah…",o:["Bima – Andi – Candra","Andi – Bima – Candra","Candra – Bima – Andi","Andi – Candra – Bima"],a:1,e:"Andi > Bima > Candra."},
+{c:"Sesat Pikir",d:2,q:"“Seorang aktor terkenal mengatakan obat ini manjur, jadi obat ini pasti manjur.” Kelemahan utamanya adalah…",o:["Aktornya kurang terkenal","Mengandalkan otoritas yang tidak relevan — aktor bukan ahli kesehatan","Obat memang tidak pernah manjur","Kesimpulan diambil terlalu cepat tanpa membaca iklan"],a:1,e:"Ketenaran bukan keahlian medis."},
+{c:"Pola & Angka",d:3,q:"Harga buku naik 20%, lalu seminggu kemudian turun 20%. Harga akhirnya dibandingkan harga awal adalah…",o:["Sama persis dengan harga awal","Lebih tinggi dari harga awal","Lebih rendah dari harga awal","Tidak bisa ditentukan"],a:2,e:"×1,2 lalu ×0,8 = ×0,96 — 4% lebih rendah."},
+{c:"Logika",d:1,q:"Peribahasa “tidak semua yang berkilau adalah emas” menyampaikan gagasan bahwa…",o:["Emas tidak pernah berkilau","Ada hal yang tampak berharga padahal sebenarnya tidak","Semua yang berkilau pasti palsu","Penampilan selalu mencerminkan isi"],a:1,e:"“Tidak semua” berarti “ada yang tidak”."},
+{c:"Bukti & Klaim",d:3,q:"Penelitian memberi suplemen ke satu kelas dan nilainya naik, tetapi TIDAK ada kelompok pembanding. Kelemahan terbesarnya adalah…",o:["Jumlah soalnya terlalu sedikit","Tanpa kelompok kontrol, kenaikan nilai bisa saja disebabkan faktor lain, bukan suplemen","Penelitiannya dilakukan di kelas, bukan laboratorium","Suplemen seharusnya diberikan ke semua sekolah"],a:1,e:"Tanpa kontrol, penyebab kenaikan tidak bisa dipastikan."},
+{c:"Sesat Pikir",d:3,q:"“Kalau mahasiswa diizinkan izin satu kali saja, lama-lama mereka akan bolos terus dan akhirnya tidak ada yang masuk kuliah.” Sesat pikir ini adalah…",o:["Dilema palsu","Lereng licin (slippery slope)","Ad hominem","Generalisasi terburu-buru"],a:1,e:"Slippery slope: langkah kecil dianggap pasti memicu kejadian ekstrem."},
+{c:"Pola & Angka",d:2,q:"Koin adil dilempar 5 kali dan selalu muncul gambar. Peluang muncul gambar pada lemparan keenam adalah…",o:["Hampir pasti gambar lagi, karena sedang “beruntun”","Sangat kecil, karena angka harus “menyeimbangkan diri”","Tetap 50% — setiap lemparan berdiri sendiri","100%, karena polanya sudah terbentuk"],a:2,e:"Gambler’s fallacy. Lemparan saling bebas, tetap 1/2."},
+{c:"Logika",d:2,q:"“Sebagian anggota tim riset adalah mahasiswa keperawatan. Sebagian mahasiswa keperawatan tinggal di asrama.” Kesimpulan yang PASTI benar adalah…",o:["Sebagian anggota tim riset tinggal di asrama","Semua anggota tim riset tinggal di asrama","Tidak ada kesimpulan pasti yang bisa ditarik dari kedua premis itu","Sebagian yang tinggal di asrama bukan mahasiswa"],a:2,e:"Dua premis “sebagian” tidak menjamin irisan yang sama."}
+];
+var ICONS={users:'<circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="10" r="2.6"/><path d="M3.5 19c.6-3 2.8-4.5 5.5-4.5S14 16 14.5 19M16 15c2 .2 3.6 1.4 4.2 4"/>',chat:'<path d="M4 5h16v10H8l-4 4z"/><path d="M8 9h8M8 12h5"/>',leaf:'<path d="M5 19C5 10 12 4 20 4c0 8-5 15-13 15"/><path d="M5 19c3-5 7-9 11-11"/>',chart:'<path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/>',campus:'<path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/>',rain:'<path d="M7 14a5 5 0 1 1 .8-9.9A6 6 0 0 1 19 6a4 4 0 0 1-1 7.9"/><path d="M8 17l-1 3M13 17l-1 3M18 17l-1 3"/>',beach:'<circle cx="17" cy="5" r="2.5"/><path d="M3 17c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 21c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/><path d="M9 12c1-3 4-5 7-4-1 3-4 5-7 4z"/>',phone:'<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2M4 8c-1 2-1 5 0 7M20 8c1 2 1 5 0 7"/>',chairs:'<path d="M4 11V6M4 11h5v9M9 11V6M20 11V6M15 11h5M15 11V6"/>',book:'<path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/>',heart:'<path d="M12 20s-7-4.5-9-9c-1.2-3 .8-6 3.8-6C9 5 12 8 12 8s3-3 5.2-3C20.2 5 22.2 8 21 11c-2 4.5-9 9-9 9z"/>',survey:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4a3 3 0 0 1 6 0M9 11l2 2 4-4M9 17h6"/>',exam:'<circle cx="12" cy="10" r="6"/><path d="M8.5 15L7 21l5-2.5L17 21l-1.5-6M9.5 10l2 2 3.5-3.5"/>',lab:'<path d="M10 3h4M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3"/><path d="M8 15h8"/>',trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',door:'<rect x="6" y="3" width="12" height="18"/><circle cx="15" cy="12" r="1.2" fill="currentColor"/><path d="M3 21h18"/>',factory:'<path d="M3 21V10l5 3v-3l5 3V6h8v15z"/><circle cx="17" cy="17" r="1.4"/>',news:'<rect x="3" y="5" width="15" height="14"/><path d="M18 9h3v10h-3M6 9h8M6 12h8M6 15h5"/>',journal:'<path d="M6 3h13v18H6z"/><path d="M9 8h7M9 12h7M9 16h4"/>',height:'<path d="M5 21V8M5 5v3M5 18v3M3 8h4M3 18h4M12 21V4M19 21V11"/>',star:'<path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6-5.4-3-5.4 3 1.1-6L3.2 9.4l6.1-.8z"/>',price:'<path d="M4 19L10 9l4 4 6-8"/><path d="M15 5h5v5"/>',gold:'<path d="M7 10l5-6 5 6-5 10z"/><path d="M3 10h18M12 4v16"/>',pill:'<rect x="4" y="9" width="16" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M10 7l4 5"/>',slope:'<path d="M3 5l18 13"/><circle cx="7" cy="8" r="2"/><path d="M18 21h3"/>',coin:'<circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 9.5c0-1 1-1.8 2.5-1.8s2.5.8 2.5 1.8c0 2.5-5 1.5-5 4 0 1 1 1.8 2.5 1.8s2.5-.8 2.5-1.8"/>',dorm:'<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6M9 11h.1M15 11h.1"/>',scale:'<path d="M12 4v16M6 20h12M12 6L6 8m6-2l6 2"/><path d="M3 13l3-5 3 5a3.5 3.5 0 0 1-6 0zM15 13l3-5 3 5a3.5 3.5 0 0 1-6 0z"/>'};
+/* Adegan per soal: b1/b2 = balon ucapan CCTV; a1/a2 = aktor reka adegan; seq/toks = papan */
+var SCENES=[
+{t:"Rani & Pelatihan Logika",icon:"users",cap:"Rani baru saja bergabung. Jejaknya menuju ruang pelatihan — ikuti rantai premisnya!",tags:["RANI","ANGGOTA UKM","PELATIHAN"],a1:"RANI",a2:"PELATIH"},
+{t:"Serangan ke Pembicara",icon:"chat",cap:"Di forum diskusi, ide ditolak bukan karena isinya — tapi karena siapa yang bicara.",tags:["FORUM","IDE DITOLAK","SIAPA VS APA"],b1:"Kamu kan belum pernah jadi ketua!",b2:"Idenya yang diuji, bukan orangnya…"},
+{t:"Herbal Viral di Ponsel",icon:"leaf",cap:"Ribuan likes, nol bukti. Botol herbal ini mengklaim bisa menyembuhkan SEMUA penyakit!",tags:["VIRAL","KLAIM AJAIB","CEK BUKTI"],viral:true,b1:"Sembuh SEMUA penyakit!!",b2:"Buktinya mana…?"},
+{t:"Papan Angka Misterius",icon:"chart",cap:"3 — 6 — 11 — 18 — 27 — ? Selisihnya berbisik memberi petunjuk pola berikutnya.",tags:["POLA","SELISIH GANJIL"],seq:["3","+3","6","+5","11","+7","18","+9","27","+11","?"]},
+{t:"Kampus Paling…?",icon:"campus",cap:"Tiga pernyataan terukur, satu terasa seperti pujian. Mana yang bukan fakta?",tags:["FAKTA","OPINI","SURABAYA"],b1:"Kampus kami PALING menyenangkan!",b2:"Itu perasaan, bukan data."},
+{t:"Hujan & Acara Outdoor",icon:"rain",cap:"Awan gelap pergi, langit cerah. Apakah acara PASTI jalan? Jangan terkecoh logikanya!",tags:["HUJAN DERAS","ACARA","TIDAK HUJAN ≠ PASTI JALAN"],a1:"PANITIA",a2:"AWAN"},
+{t:"Es Krim & Pantai Panas",icon:"beach",cap:"Es krim laris, kasus tenggelam naik — bersamaan! Ada tersangka ketiga: musim panas.",tags:["ES KRIM ↑","TENGGELAM ↑","MUSIM PANAS ☀"],b1:"Es krimnya laris manis!",b2:"Pantai juga ramai… panas sekali!"},
+{t:"Semua Teman Sudah Pakai!",icon:"phone",cap:"Antrean panjang di depan aplikasi baru. Populer — tapi apakah pasti aman?",tags:["SEMUA PAKAI","POPULER","AMAN?"],viral:true,b1:"Semua sudah pakai, ayo ikut!",b2:"Populer ≠ terbukti aman."},
+{t:"Empat Kursi Berjajar",icon:"chairs",cap:"Dita, Eka, Fajar, Gilang duduk berurutan. Susun petunjuk kiri-kanannya!",tags:["DITA ← EKA","EKA ← FAJAR","PALING KIRI?"],toks:["DITA","EKA","FAJAR","GILANG","?"]},
+{t:"Perpustakaan Pekan Ujian",icon:"book",cap:"Ruang baca penuh sesak tiap malam. Argumen mana yang didukung data nyata?",tags:["412 MAHASISWA","78%","RUANG PENUH"],b1:"Menurut survei, 78% kehabisan tempat!",b2:"Data 412 mahasiswa — kuat!"},
+{t:"Ikut = Peduli?",icon:"heart",cap:"“Tidak ikut = tidak peduli!” Benarkah hanya ada dua pilihan itu saja?",tags:["IKUT?","PEDULI?","PILIHAN LAIN?"],b1:"Tidak ikut = tidak peduli!",b2:"Eh, ada banyak cara peduli…"},
+{t:"Survei 12 dari 2.000",icon:"survey",cap:"Hanya 12 suara mengklaim mewakili 2.000 mahasiswa. Sampel sekecil ini mencurigakan!",tags:["n = 12","POPULASI 2.000","WAKILI?"],b1:"12 orang mewakili 2.000!",b2:"Sampelnya kecil sekali…"},
+{t:"Semua Peserta Lulus?",icon:"exam",cap:"Untuk membantah kata “semua”, cukup SATU contoh yang berlawanan.",tags:["SEMUA","NEGASI","ADA YANG TIDAK"],a1:"SEMUA",a2:"SATU PENGECUALIAN"},
+{t:"Grafik Rata-Rata Naik",icon:"chart",cap:"Garis rata-rata menanjak — tapi lihat siswa di bawahnya, ada yang justru turun.",tags:["RATA-RATA ↑","INDIVIDU?","JANGAN TERTIPU"],toks:["70","82","65","91","RATA-RATA ↑","?"]},
+{t:"Laboratorium Uji Obat",icon:"lab",cap:"Testimoni vs uji klinis terkontrol. Di lab ini, bukti diuji dengan kelompok pembanding.",tags:["UJI KLINIS","KONTROL","BUKTI KUAT"],b1:"Tetanggaku sembuh, lho!",b2:"Uji klinisnya yang menentukan."},
+{t:"Plastik di Kantin",icon:"trash",cap:"“Kurangi plastik” dipelintir jadi “dilarang makan”. Argumen aslinya hilang!",tags:["KURANGI PLASTIK","BUKAN LARANG MAKAN","PELINTIRAN"],b1:"Kurangi sampah plastik, yuk.",b2:"Jadi dilarang makan?! Berlebihan!"},
+{t:"Pintu Pengurus Terkunci",icon:"door",cap:"Lulus seleksi adalah satu kunci — tapi pintu pengurus mungkin butuh kunci lain.",tags:["SYARAT PERLU","SYARAT CUKUP?","BUDI"],a1:"BUDI",a2:"PINTU PENGURUS"},
+{t:"Pabrik 100 Mesin",icon:"factory",cap:"5 mesin, 5 menit, 5 komponen. Pabrik diperbesar 20× — waktunya ikut membesar?",tags:["5 MESIN","5 MENIT","100 MESIN?"],toks:["5 MESIN","5 MENIT","5 KOMPONEN","100 MESIN","? MENIT"]},
+{t:"Gelembung Berita",icon:"news",cap:"Pembaca ini hanya membuka berita yang setuju dengannya. Gelembungnya makin tertutup!",tags:["HANYA YANG SETUJU","YANG LAWAN DIABAIKAN","BIAS"],b1:"Berita ini setuju denganku. Klik!",b2:"Yang berlawanan? Lewati saja."},
+{t:"Jurnal Terpercaya",icon:"journal",cap:"Empat sumber berlomba: anonim, pesan berantai, iklan, dan jurnal peer-review.",tags:["PEER REVIEW","AHLI MENELAAH","KREDIBEL"],b1:"Kata grup sebelah sih…",b2:"Jurnal peer-review, ini yang kredibel."},
+{t:"Siapa Paling Tinggi?",icon:"height",cap:"Andi, Bima, Candra berjejer di penggaris raksasa. Urutkan dari petunjuk perbandingannya!",tags:["ANDI > BIMA","BIMA > CANDRA"],a1:"ANDI",a2:"BIMA → CANDRA"},
+{t:"Aktor & Obat Manjur",icon:"star",cap:"Di bawah lampu panggung, aktor terkenal mempromosikan obat. Tenar ≠ ahli medis.",tags:["AKTOR TERKENAL","BUKAN AHLI","OTORITAS?"],viral:true,b1:"Aktor terkenal bilang manjur!",b2:"Dia bukan dokter…"},
+{t:"Harga Buku Naik-Turun",icon:"price",cap:"Naik 20%, lalu turun 20% — terdengar impas. Hitung basis persentasenya baik-baik!",tags:["+20%","−20%","IMPAS? TIDAK!"],seq:["100","+20%","120","−20%","96","?"]},
+{t:"Kilau Emas Palsu",icon:"gold",cap:"Tumpukan benda berkilau — tidak semuanya emas asli. Penampilan bisa menipu.",tags:["BERKILAU","EMAS?","TIDAK SEMUA"],a1:"BERKILAU",a2:"EMAS ASLI?"},
+{t:"Suplemen Tanpa Pembanding",icon:"pill",cap:"Satu kelas diberi suplemen dan nilainya naik. Tanpa kelas pembanding, siapa penyebabnya?",tags:["SUPLEMEN","TANPA KONTROL","FAKTOR LAIN?"],b1:"Nilai naik setelah suplemen!",b2:"Tanpa pembanding, belum pasti."},
+{t:"Lereng Licin Izin Bolos",icon:"slope",cap:"Satu izin kecil digambarkan menggelinding jadi bencana besar. Berlebihan atau masuk akal?",tags:["IZIN 1×","BOLOS?","TIDAK ADA YANG MASUK?!"],b1:"Sekali izin saja…",b2:"Nanti semua bolos! Kampus kosong!"},
+{t:"Koin Beruntun 5×",icon:"coin",cap:"Gambar, gambar, gambar, gambar, gambar! Lemparan keenam terasa “pasti” — benarkah?",tags:["GAMBAR ×5","LEMPARAN KE-6","50%?"],toks:["GAMBAR","GAMBAR","GAMBAR","GAMBAR","GAMBAR","?"]},
+{t:"Tim Riset & Asrama",icon:"dorm",cap:"Dua kelompok “sebagian” yang mungkin berisi orang berbeda. Jangan lompat ke kesimpulan!",tags:["SEBAGIAN A","SEBAGIAN B","IRISAN?"],a1:"TIM RISET",a2:"ASRAMA"}
+];
+</script>
+
+<script>
+"use strict";
+function $(id){return document.getElementById(id)}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function fmtTime(s){s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+":"+("0"+(s%60)).slice(-2)}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function showScreen(n){["start","game","result"].forEach(function(x){$("screen-"+x).classList.toggle("hidden",x!==n)});window.scrollTo({top:0,behavior:"smooth"})}
+
+/* ================= SUARA (WebAudio, default MATI) ================= */
+var soundOn=false,actx=null;
+function tone(f,d,type,delay,vol){if(!soundOn)return;try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume();var t=actx.currentTime+(delay||0),o=actx.createOscillator(),g=actx.createGain();o.type=type||"sine";o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(vol||.12,t);g.gain.exponentialRampToValueAtTime(.001,t+(d||.15));o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+(d||.15)+.05)}catch(e){}}
+function sfx(kind){if(!soundOn)return;
+ if(kind==="click")tone(660,.07,"triangle");
+ else if(kind==="good"){tone(660,.12,"sine");tone(880,.16,"sine",.1);tone(1320,.2,"sine",.2)}
+ else if(kind==="bad"){tone(200,.22,"sawtooth",0,.07);tone(140,.3,"sawtooth",.08,.07)}
+ else if(kind==="stamp"){tone(90,.18,"square",0,.2);tone(55,.25,"sine",0,.22)}
+ else if(kind==="rank"){tone(523,.14,"triangle");tone(659,.14,"triangle",.12);tone(784,.14,"triangle",.24);tone(1046,.3,"triangle",.36)}
+ else if(kind==="creak"){tone(120,.5,"sawtooth",0,.03);tone(90,.6,"sawtooth",.3,.03)}
+ else if(kind==="tick")tone(980,.05,"square",0,.05);}
+$("btn-sound").addEventListener("click",function(){soundOn=!soundOn;this.classList.toggle("on",soundOn);this.setAttribute("aria-pressed",soundOn);this.textContent=soundOn?"🔊 Suara: Nyala":"🔇 Suara: Mati";if(soundOn)sfx("click")});
+
+/* ================= CAPY MOOD ================= */
+$("hero-capy-wrap").innerHTML=capySVG("idle");
+$("game-capy-holder").innerHTML=capySVG("idle");
+$("result-capy-wrap").innerHTML=capySVG("proud");
+$("intro-capy").innerHTML=capySVG("idle");
+$("rankup-capy").innerHTML=capySVG("proud");
+function setCapyMood(mood,text){var w=$("game-capy-wrap");w.className="capy-wrap "+(mood==="idle"?"":mood);$("game-capy-holder").innerHTML=capySVG(mood==="panic"?"panic":mood);if(text)$("capy-mood").textContent=text}
+function speak(txt){$("game-speech").textContent="“"+txt+"”"}
+
+/* ================= FX ================= */
+function confetti(n,goldOnly){var fx=$("fx"),colors=goldOnly?["#d99a06","#ffe9a8","#b97e04","#fff3c4"]:["#d99a06","#0e7c6b","#c0392b","#173763","#e879a6"];for(var i=0;i<(n||26);i++){var d=document.createElement("div");d.className="confetto";d.style.left=Math.random()*100+"vw";d.style.background=colors[i%colors.length];d.style.animationDuration=(1.1+Math.random()*1.2)+"s";d.style.transform="rotate("+Math.random()*360+"deg)";fx.appendChild(d);(function(el){setTimeout(function(){el.remove()},2600)})(d)}}
+function flyPoints(txt,x,y){var d=document.createElement("div");d.className="flypts";d.textContent=txt;d.style.left=(x||window.innerWidth/2)+"px";d.style.top=(y||220)+"px";document.body.appendChild(d);setTimeout(function(){d.remove()},1000)}
+
+/* ================= INTRO SINEMATIK ================= */
+var introDone=false,introTimers=[];
+function endIntro(){if(introDone)return;introDone=true;introTimers.forEach(clearTimeout);var el=$("intro");el.classList.add("gone");el.style.pointerEvents="none";el.setAttribute("aria-hidden","true");setTimeout(function(){el.style.display="none"},650);$("input-name").focus()}
+(function runIntro(){
+ var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ var el=$("intro"),cap=$("intro-cap");
+ el.addEventListener("pointerdown",function(){endIntro()});
+ if(reduced){cap.textContent="Kantor Detektif Nalar";introTimers.push(setTimeout(endIntro,500));return}
+ /* Rangkaian intro — total INTRO_TOTAL_MS (ubah di konstanta atas) */
+ var steps=[
+  {t:100, fn:function(){cap.textContent="Di sebuah kantor kecil, di jantung Surabaya…"}},
+  {t:800, fn:function(){el.classList.add("s1");sfx("creak");cap.textContent="*kriettt…* — pintu kayu tua berderit terbuka."}},
+  {t:2300,fn:function(){el.classList.add("s2");cap.textContent="Seberkas cahaya masuk. Lampu pertama menyala…"}},
+  {t:3600,fn:function(){el.classList.add("s3");cap.textContent="Papan kasus, benang merah, rak berkas — semua tersingkap."}},
+  {t:4900,fn:function(){el.classList.add("s4");cap.textContent="Dan di balik meja kayu itu… ada bayangan berbulu."}},
+  {t:6100,fn:function(){el.classList.add("s5");cap.textContent="Kepala Detektif Capy menyodorkan surat untukmu."}}
+ ];
+ steps.forEach(function(s){introTimers.push(setTimeout(s.fn,s.t))});
+ introTimers.push(setTimeout(endIntro,INTRO_TOTAL_MS));
+ $("btn-skip-intro").addEventListener("click",endIntro);
+})();
+
+/* ================= PENDAFTARAN — mesin tik & stempel ================= */
+var stamped=false;
+$("input-name").addEventListener("input",function(){
+ var v=this.value;
+ $("typed-name").textContent=v||"—";
+ if(v.trim().length>=2&&!stamped){stamped=true;
+   var st=$("stamp");st.classList.remove("slam");void st.offsetWidth;st.classList.add("slam");sfx("stamp");
+   var pb=$("pin-badge");pb.classList.remove("pin");void pb.offsetWidth;pb.classList.add("pin");
+ } else if(v.trim().length<2&&stamped){stamped=false;$("stamp").classList.remove("slam");$("pin-badge").classList.remove("pin")}
+});
+
+/* ================= STATE & LEADERBOARD ================= */
+var leaderboard=[],lastEntryId=null,S=null,sceneInt=null,resultInt=null,resultLeft=AUTO_RESET_S,startLock=false;
+function lbHTML(){if(!leaderboard.length)return '<div class="lb-empty"><b>Belum ada detektif di sesi ini</b><br>Jadilah yang pertama memecahkan kasus di booth ini.</div>';var h='<ol class="lb-list">';leaderboard.slice(0,10).forEach(function(en){var acc=en.answered?Math.round(en.correct/en.answered*100):0;h+='<li class="lb-row'+(en.id===lastEntryId?" me":"")+'"><span class="ranknum">'+en.rank+'</span><span><span class="lb-name">'+escapeHTML(en.name)+'</span> <span class="rankbadge">🎖️ '+escapeHTML(en.rankName)+'</span><br><span class="lb-meta">'+escapeHTML(en.asal||"Pengunjung Booth")+' · '+en.correct+'/'+en.answered+' benar ('+acc+'%)</span></span><span class="lb-score"><b>'+en.score.toLocaleString("id-ID")+'</b><span>poin</span></span></li>'});return h+'</ol>'}
+function renderLeaderboards(){$("lb-start").innerHTML=lbHTML();$("lb-result").innerHTML=lbHTML()}
+
+/* ================= ANIMASI ADEGAN KASUS ================= */
+function sceneType(cat){if(cat==="Logika")return"reka";if(cat==="Pola & Angka")return"papan";return"cctv"}
+function stopSceneFx(){if(sceneInt){clearInterval(sceneInt);sceneInt=null}}
+function renderScene(origIdx){
+ stopSceneFx();
+ var q=QUESTIONS[origIdx],sc=SCENES[origIdx],type=sceneType(q.c),stage="";
+ if(type==="cctv"){
+   var likes=sc.viral?'<div class="likesbox"><div class="heart">❤️</div><b id="like-num">12.480</b><span>LIKES &amp; NAIK TERUS!</span></div>':"";
+   stage='<div class="glitchwrap"><div class="fig" style="left:10%"><div class="fh"></div><div class="fb"></div></div><div class="fig f2"><div class="fh"></div><div class="fb"></div></div>'
+   +(sc.b1?'<div class="bubble" style="left:8%;top:16%">'+escapeHTML(sc.b1)+'</div>':"")
+   +(sc.b2?'<div class="bubble" style="right:8%;top:44%;animation-delay:2.1s">'+escapeHTML(sc.b2)+'</div>':"")
+   +likes+'</div><div class="scanlines"></div><div class="grain"></div>'
+   +'<div class="cctv-ui"><span class="rec">● REC</span><span class="ts" id="cctv-ts">CAM 04 • 00:00:00</span><span class="cam">KAMERA: RUANG PUBLIK • MODE NALAR</span><div class="frame"></div></div>';
+ } else if(type==="reka"){
+   stage='<svg class="threadsvg" viewBox="0 0 600 196" preserveAspectRatio="none"><path d="M70 52 Q200 130 320 66 T560 48"/><path d="M320 66 Q420 140 540 120"/></svg>'
+   +'<span class="pin" style="left:9%;top:22%"></span><span class="pin" style="left:52%;top:30%"></span><span class="pin" style="right:6%;top:20%"></span>'
+   +'<span class="cluechip" style="left:5%;top:8%">📌 '+escapeHTML(sc.tags[0]||"PETUNJUK")+'</span>'
+   +'<span class="cluechip" style="left:44%;top:12%;animation-delay:.7s">📌 '+escapeHTML(sc.tags[1]||"PETUNJUK")+'</span>'
+   +(sc.tags[2]?'<span class="cluechip" style="right:5%;top:6%;animation-delay:1.2s">📌 '+escapeHTML(sc.tags[2])+'</span>':"")
+   +'<div class="actor" style="left:12%"><div class="ah" style="background:#b5541d"></div><div class="ab" style="background:#173763"></div><span class="an">'+escapeHTML(sc.a1||"SAKSI")+'</span></div>'
+   +'<div class="actor" style="left:56%;animation-delay:-2.3s"><div class="ah" style="background:#5d4037"></div><div class="ab" style="background:#0e7c6b"></div><span class="an">'+escapeHTML(sc.a2||"TERLAPOR")+'</span></div>'
+   +'<div class="reka-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+ICONS[sc.icon]+'</svg></div>';
+ } else {
+   var inner="";
+   if(sc.seq){sc.seq.forEach(function(tok,i){var isNum=/^\d+$/.test(tok),isQ=tok==="?";inner+='<span class="'+(isNum||isQ?"seqnum":"seqdiff")+(isQ?" qmark":"")+'" style="animation-delay:'+(i*0.45)+'s">'+escapeHTML(tok)+'</span>'})}
+   else{(sc.toks||sc.tags).forEach(function(tok,i){var isQ=tok.indexOf("?")===0||tok==="?"||tok.indexOf("MENIT")>0;inner+='<span class="seqtok" style="animation-delay:'+(i*0.45)+'s;'+(isQ?"border-color:var(--gold);color:#ffe9a8":"")+'">'+escapeHTML(tok)+'</span>'})}
+   stage='<div class="seqrow">'+inner+'</div>';
+ }
+ var tags=sc.tags.map(function(t,i){return '<span style="animation-delay:'+(i*0.4)+'s">'+escapeHTML(t)+'</span>'}).join("");
+ $("q-scene").innerHTML='<div class="scene '+type+'" id="scene-box"><div class="scene-head"><div><div class="case-no">🗂️ Berkas Kasus #'+("0"+(origIdx+1)).slice(-2)+' • '+(type==="cctv"?"Rekaman CCTV":type==="reka"?"Reka Adegan":"Papan Kasus")+'</div><h3>'+escapeHTML(sc.t)+'</h3><p>'+escapeHTML(sc.cap)+'</p></div><div class="scene-btns"><button type="button" class="scenebtn" id="btn-replay">↻ Putar ulang adegan</button><button type="button" class="scenebtn" id="btn-skip-scene">Lewati ▶</button></div></div><div class="scene-stage '+(type==="cctv"?"cctv-stage":type==="reka"?"reka-stage":"papan-stage")+'">'+stage+'</div><div class="scene-tags">'+tags+'</div></div>';
+ $("btn-replay").addEventListener("click",function(){sfx("click");renderScene(origIdx)});
+ $("btn-skip-scene").addEventListener("click",function(){sfx("click");$("scene-box").classList.add("mini");this.style.display="none"});
+ if(type==="cctv"){
+   var start=Date.now(),likeBase=12480+Math.floor(Math.random()*900),likeEl=$("like-num");
+   sceneInt=setInterval(function(){
+     var ts=$("cctv-ts");if(ts){var d=new Date();ts.textContent="CAM 04 • "+("0"+d.getHours()).slice(-2)+":"+("0"+d.getMinutes()).slice(-2)+":"+("0"+d.getSeconds()).slice(-2)}
+     if(likeEl){likeBase+=Math.floor(Math.random()*47)+3;likeEl.textContent=likeBase.toLocaleString("id-ID")}
+   },420);
+ }
+}
+
+/* ================= GAME ================= */
+var CORRECT_LINES=["Aha! Petunjuknya cocok — deduksi yang brilian!","Elementary! Kamu membaca premis seperti detektif sejati.","Lup-ku bergetar… itu jawaban yang tepat!","Kasus ini retak! Kerja bagus, Detektif."];
+var WRONG_LINES=["Hmm, jejaknya menyesatkan kali ini. Baca penjelasannya, kita lanjut!","Topiku miring karena pusing — tapi detektif tak menyerah!","Petunjuk palsu! Aku juga pernah terkecoh yang seperti ini.","Jangan khawatir, Sherlock pun salah dulu baru benar."];
+var IDLE_LINES=["Ingat: korelasi bukan sebab-akibat, kawan.","Periksa kata “semua”, “pasti”, dan “selalu” — di situlah jebakan bersembunyi.","Tenar bukan berarti ahli. Periksa relevansi otoritasnya!","Sampel kecil tak bisa mewakili semua orang.","Baca premisnya, bukan perasaanmu. Itu kunci detektif."];
+function startGame(){if(startLock)return;startLock=true;setTimeout(function(){startLock=false},900);stopResultTimer();var name=$("input-name").value.trim()||"Pengunjung Booth";S={name:name,asal:$("input-asal").value.trim()||"Pengunjung Booth",queue:shuffle(QUESTIONS.map(function(_,i){return i})),pos:0,score:0,correct:0,answered:0,streak:0,bestStreak:0,timeLeft:TOTAL_TIME,endAt:Date.now()+TOTAL_TIME*1000,timerId:null,autoId:null,locked:false,finished:false,bonus:0,cat:{},rankIdx:0};document.body.classList.remove("lowtime");showScreen("game");updateHUD();updateRankHUD(false);renderQuestion();S.timerId=setInterval(tick,200);sfx("click")}
+function tick(){if(!S||S.finished)return;S.timeLeft=(S.endAt-Date.now())/1000;if(S.timeLeft<=30&&S.timeLeft>0){document.body.classList.add("lowtime");if(Math.ceil(S.timeLeft)!==S._lt){S._lt=Math.ceil(S.timeLeft);setCapyMood("panic","Waktu menipis! Capy panik! 😱");if(S.timeLeft<=10)sfx("tick")}}if(S.timeLeft<=0){S.timeLeft=0;updateHUD();endGame(false,true);return}updateHUD()}
+function updateHUD(){if(!S)return;$("hud-time").textContent=fmtTime(S.timeLeft);$("hud-score").textContent=S.score.toLocaleString("id-ID");$("hud-streak").textContent=S.streak+"×";$("hud-count").textContent=S.answered;$("stat-time").classList.toggle("danger",S.timeLeft<=30);$("stat-streak").classList.toggle("onfire",S.streak>=3);var b=$("timebar");b.classList.toggle("low",S.timeLeft<=30);b.querySelector("i").style.width=(S.timeLeft/TOTAL_TIME*100)+"%"}
+function updateRankHUD(announce){
+ var info=rankFor(S.correct);$("rb-name").textContent=info.rank.name;$("rb-badge").textContent="🎖️";
+ if(info.next){var span=info.next.min-info.rank.min,done=S.correct-info.rank.min;$("rb-fill").style.width=Math.round(done/span*100)+"%";$("rb-next").innerHTML="Pecahkan <b>"+(info.next.min-S.correct)+" kasus benar</b> lagi → "+escapeHTML(info.next.name)}
+ else{$("rb-fill").style.width="100%";$("rb-next").textContent="Pangkat tertinggi tercapai! 👑"}
+ if(announce&&info.index>S.rankIdx){showRankUp(info)}
+ S.rankIdx=info.index;
+}
+function showRankUp(info){
+ $("rankup-name").textContent=info.rank.name;
+ $("rankup-stars").textContent=rankStars(info.index);
+ $("rankup-msg").textContent="Capy menyematkan lencana "+info.rank.name+" di bahumu. "+S.correct+" kasus benar terpecahkan!";
+ var el=$("rankup");el.classList.add("show");confetti(46,true);sfx("rank");
+ setTimeout(function(){el.classList.remove("show")},2000);
+}
+function currentQ(){return QUESTIONS[S.queue[S.pos]]}
+function renderQuestion(){var q=currentQ(),orig=S.queue[S.pos];S.locked=false;var card=$("qcard");card.classList.remove("pop");void card.offsetWidth;card.classList.add("pop");renderScene(orig);$("prog-text").textContent="Kasus "+(S.pos+1)+" dari "+S.queue.length+" • "+S.answered+" terjawab";$("q-cat").textContent=CAT_LABEL[q.c]||q.c;$("q-diff").textContent=DIFF_NAME[q.d];$("q-pts").textContent=POINTS[q.d]+" poin";$("q-text").textContent="Soal "+(S.pos+1)+". "+q.q;var fb=$("q-feedback");fb.className="feedback";fb.innerHTML="";if(S.timeLeft>30){setCapyMood("idle","Sedang mengamati petunjuk… 👃🔍");speak("Kasus baru terbuka! Amati reka adegannya, lalu ikuti logikanya.")}var order=shuffle(q.o.map(function(_,i){return i}));S.currentOrder=order;S.correctPos=order.indexOf(q.a);var box=$("q-opts");box.innerHTML="";order.forEach(function(oi,pos){var btn=document.createElement("button");btn.type="button";btn.className="opt";btn.innerHTML='<span class="letter">'+"ABCD"[pos]+'</span><span>'+escapeHTML(q.o[oi])+'</span>';btn.addEventListener("click",function(){answer(pos)});box.appendChild(btn)})}
+function answer(pos){if(!S||S.locked||S.finished)return;S.locked=true;var q=currentQ(),isRight=pos===S.correctPos;S.answered++;if(!S.cat[q.c])S.cat[q.c]={right:0,total:0};S.cat[q.c].total++;var gained=0,sb=0;
+ if(isRight){S.correct++;S.cat[q.c].right++;S.streak++;if(S.streak>S.bestStreak)S.bestStreak=S.streak;gained=POINTS[q.d];if(S.streak>=3){sb=25;gained+=sb}S.score+=gained;confetti(S.streak>=3?42:26);flyPoints("+"+gained+" POIN!",window.innerWidth*0.45,260);setCapyMood("happy","Capy melompat kegirangan! 🎉");speak(CORRECT_LINES[Math.floor(Math.random()*CORRECT_LINES.length)]);sfx("good")}
+ else{S.streak=0;$("qcard").classList.add("shake");setTimeout(function(){$("qcard").classList.remove("shake")},500);setCapyMood("sad","Capy pusing tujuh keliling… ⭐💫");speak(WRONG_LINES[Math.floor(Math.random()*WRONG_LINES.length)]);sfx("bad")}
+ var btns=$("q-opts").children;for(var i=0;i<btns.length;i++){btns[i].disabled=true;if(i===S.correctPos)btns[i].classList.add("correct");else if(i===pos)btns[i].classList.add("wrong");else btns[i].classList.add("dim")}
+ var fb=$("q-feedback");fb.className="feedback show "+(isRight?"ok":"no");fb.innerHTML='<b>'+(isRight?"✅ Jawaban kamu Benar!":"❌ Belum tepat — petunjuk palsu!")+(isRight?' <span>+'+gained+' poin'+(sb?' (termasuk bonus streak +25)':'')+'</span>':'')+'</b><p style="margin-top:4px">'+escapeHTML(q.e)+'</p><p style="margin-top:10px"><button type="button" class="btn small" id="btn-next">'+(S.pos+1>=S.queue.length?"🏁 Lihat Hasil":"➡️ Kasus Berikutnya")+'</button></p>';$("btn-next").addEventListener("click",nextQuestion);$("btn-next").focus();updateHUD();updateRankHUD(isRight);S.autoId=setTimeout(nextQuestion,6500)}
+function nextQuestion(){if(!S||S.finished)return;if(S.autoId){clearTimeout(S.autoId);S.autoId=null}S.pos++;if(S.pos>=S.queue.length){endGame(true);return}renderQuestion()}
+function gradeFor(s){if(s>=2400)return["Penalar Sejati","Luar biasa! Capy sampai angkat topi — nalar, kecepatan, dan ketepatanmu seimbang sempurna."];if(s>=1600)return["Pemikir Kritis","Kuat sekali. Kamu mampu membedakan argumen kokoh dari yang sekadar terdengar meyakinkan."];if(s>=900)return["Penalar Muda","Fondasi nalarmu bagus. Sedikit lebih teliti membaca premis, skor ini bisa naik jauh."];if(s>=400)return["Mulai Tajam","Awal yang baik! Penjelasan tiap soal adalah bahan bakarmu — coba lagi dan kejar streak lebih panjang."];return["Terus Berlatih","Setiap detektif hebat mulai dari kasus pertama. Mainkan satu putaran lagi!"]}
+function endGame(done,timedOut){if(!S||S.finished)return;S.finished=true;stopSceneFx();document.body.classList.remove("lowtime");if(S.timerId)clearInterval(S.timerId);if(S.autoId)clearTimeout(S.autoId);if(done){S.bonus=Math.floor(Math.max(0,S.timeLeft))*5;S.score+=S.bonus}
+ var acc=S.answered?S.correct/S.answered:0,g=gradeFor(S.score),info=rankFor(S.correct);
+ var entry={id:"e"+Date.now()+Math.floor(Math.random()*9999),name:S.name,asal:S.asal,score:S.score,correct:S.correct,answered:S.answered,rankName:info.rank.name};
+ leaderboard.push(entry);leaderboard.sort(function(a,b){return b.score-a.score||b.correct-a.correct});leaderboard.forEach(function(en,i){en.rank=i+1});lastEntryId=entry.id;
+ $("result-capy-wrap").innerHTML=capySVG(S.correct>=7?"proud":"happy");
+ $("res-player").textContent=S.name;$("res-asal").textContent=S.asal;
+ $("res-rankbadge").textContent="🎖️ "+rankStars(info.index)+" "+info.rank.name;
+ $("res-rank2").textContent=info.rank.name;
+ $("res-msg").textContent=g[0]+" — "+g[1];
+ $("res-score").textContent=S.score.toLocaleString("id-ID");$("res-correct").textContent=S.correct;$("res-answered").textContent=S.answered;$("res-acc").textContent=Math.round(acc*100)+"%";$("res-streak").textContent=S.bestStreak+"×";
+ $("res-bonus").textContent=done?"🎉 Kamu menyelesaikan semua "+S.queue.length+" kasus sebelum waktu habis — bonus sisa waktu +"+S.bonus.toLocaleString("id-ID")+" poin! Kamu peringkat #"+entry.rank+" di leaderboard sesi ini.":(timedOut?"⏰ Waktu habis! Dramatis sampai detik terakhir. ":"Putaran diakhiri lebih awal. ")+"Kamu peringkat #"+entry.rank+" di leaderboard sesi ini.";
+ var cats=["Logika","Sesat Pikir","Bukti & Klaim","Pola & Angka"],h="";cats.forEach(function(cn){var st=S.cat[cn]||{right:0,total:0},pct=st.total?Math.round(st.right/st.total*100):0;h+='<div class="row"><span style="font-weight:800">'+(CAT_LABEL[cn]||cn)+'</span><span class="bar"><i style="width:'+pct+'%"></i></span><span style="text-align:right;font-weight:900">'+st.right+'/'+st.total+'</span></div>'});$("res-catbreak").innerHTML=h;
+ renderLeaderboards();showScreen("result");startResultTimer();if(S.score>=900)confetti(70,true)}
+
+/* ================= AUTO-RESET HASIL (45 detik) ================= */
+function startResultTimer(){stopResultTimer();resultLeft=AUTO_RESET_S;var note=$("autoreset-note");note.textContent="⏳ Layar ini kembali untuk Pemain Berikutnya dalam "+resultLeft+" detik — sentuh layar untuk tetap di sini.";resultInt=setInterval(function(){resultLeft--;if(resultLeft<=0){stopResultTimer();goHome();return}note.textContent="⏳ Layar ini kembali untuk Pemain Berikutnya dalam "+resultLeft+" detik — sentuh layar untuk tetap di sini."},1000)}
+function stopResultTimer(){if(resultInt){clearInterval(resultInt);resultInt=null}}
+["pointerdown","keydown","touchstart"].forEach(function(ev){document.addEventListener(ev,function(){if(resultInt&&!$("screen-result").classList.contains("hidden")){resultLeft=AUTO_RESET_S}},true)});
+function goHome(){$("input-name").value="";$("input-asal").value="";stamped=false;$("stamp").classList.remove("slam");$("pin-badge").classList.remove("pin");$("typed-name").textContent="—";showScreen("start");renderLeaderboards();window.scrollTo({top:0})}
+
+/* ================= EVENTS ================= */
+$("start-form").addEventListener("submit",function(e){e.preventDefault();if(!introDone)endIntro();startGame()});
+$("btn-start").addEventListener("click",function(){if(!introDone)endIntro();startGame()});
+$("btn-quit").addEventListener("click",function(){endGame(false)});
+$("btn-again").addEventListener("click",function(){stopResultTimer();$("input-name").value=S?S.name:"";startGame()});
+$("btn-home").addEventListener("click",function(){stopResultTimer();goHome()});
+$("btn-reset-lb").addEventListener("click",function(){leaderboard=[];lastEntryId=null;renderLeaderboards();stopResultTimer();startResultTimer()});
+$("btn-capy-talk").addEventListener("click",function(){speak(IDLE_LINES[Math.floor(Math.random()*IDLE_LINES.length)]);setCapyMood("happy","Capy memberi semangat!");sfx("click");setTimeout(function(){if(S&&!S.locked&&S.timeLeft>30)setCapyMood("idle","Sedang mengamati petunjuk… 👃🔍")},1300)});
+$("hero-mascot").addEventListener("click",function(){var lines=["Elementary, kawan! Selalu periksa premisnya dulu.","Lup-ku melihat… seseorang akan naik pangkat hari ini!","Jaket varsity ini bukan gaya-gayaan — ini seragam berpikir!","Kasus tersulit pun retak kalau dibaca pelan-pelan."];$("hero-speech").textContent="“"+lines[Math.floor(Math.random()*lines.length)]+"”";var w=$("hero-capy-wrap");w.classList.remove("happy");void w.offsetWidth;w.classList.add("happy");confetti(14)});
+document.addEventListener("keydown",function(e){if(!introDone&&(e.key==="Enter"||e.key===" "||e.key==="Escape")){endIntro();return}if($("screen-game").classList.contains("hidden"))return;if(!S||S.finished)return;if(!S.locked){var m={"1":0,"2":1,"3":2,"4":3,"a":0,"b":1,"c":2,"d":3,"A":0,"B":1,"C":2,"D":3};if(e.key in m)answer(m[e.key])}});
+renderLeaderboards();
+</script>
+</body></html>
